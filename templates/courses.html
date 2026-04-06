@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}CloudCampusIQ | All Courses{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <span class="section-eyebrow">Course catalog</span>
+        <h1>All Courses</h1>
+        <p>Search curated technology training to find the right next step for your learning journey.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="search-panel">
+            <label for="courseSearch" class="search-label">Search courses</label>
+            <input
+                type="text"
+                id="courseSearch"
+                class="search-input"
+                placeholder="Search by title, topic, or level"
+                aria-label="Search courses"
+            >
+        </div>
+
+        <div class="course-grid course-catalog">
+            <a class="course-card searchable-course" href="https://www.linkedin.com/learning/cloud-computing-understanding-core-concepts" target="_blank" rel="noopener noreferrer" data-search="cloud computing fundamentals core concepts beginner infrastructure azure cloud">
+                <span class="course-level">Beginner</span>
+                <h3>Cloud Computing Fundamentals</h3>
+                <p>Master cloud concepts, deployment models, and the terminology behind scalable digital platforms.</p>
+                <span class="btn btn-card">Enroll Now</span>
+            </a>
+            <a class="course-card searchable-course" href="https://www.linkedin.com/learning/cybersecurity-awareness-cybersecurity-terminology" target="_blank" rel="noopener noreferrer" data-search="cybersecurity essentials awareness terminology beginner security">
+                <span class="course-level">Beginner</span>
+                <h3>Cybersecurity Essentials</h3>
+                <p>Build confidence with core cybersecurity vocabulary, awareness practices, and risk reduction basics.</p>
+                <span class="btn btn-card">Enroll Now</span>
+            </a>
+            <a class="course-card searchable-course" href="https://www.linkedin.com/learning/building-full-stack-apps-with-react-and-spring" target="_blank" rel="noopener noreferrer" data-search="full stack web development react spring intermediate web apps">
+                <span class="course-level">Intermediate</span>
+                <h3>Full Stack Web Development</h3>
+                <p>Connect front-end and backend technologies to create complete, production-ready web applications.</p>
+                <span class="btn btn-card">Enroll Now</span>
+            </a>
+            <a class="course-card searchable-course" href="https://www.linkedin.com/learning/data-analysis-with-python-and-pandas" target="_blank" rel="noopener noreferrer" data-search="data analytics with python pandas intermediate analytics">
+                <span class="course-level">Intermediate</span>
+                <h3>Data Analytics with Python</h3>
+                <p>Analyze datasets and uncover insights using Python workflows and practical pandas techniques.</p>
+                <span class="btn btn-card">Enroll Now</span>
+            </a>
+            <a class="course-card searchable-course" href="https://www.linkedin.com/learning/azure-essential-training-for-administrators-2023" target="_blank" rel="noopener noreferrer" data-search="microsoft azure administration cloud administrator intermediate azure">
+                <span class="course-level">Intermediate</span>
+                <h3>Microsoft Azure Administration</h3>
+                <p>Learn essential Azure services, portal management, and administrative workflows for cloud operations.</p>
+                <span class="btn btn-card">Enroll Now</span>
+            </a>
+            <a class="course-card searchable-course" href="https://www.linkedin.com/learning/devops-foundations-continuous-delivery-continuous-integration" target="_blank" rel="noopener noreferrer" data-search="devops continuous delivery integration intermediate automation pipelines">
+                <span class="course-level">Intermediate</span>
+                <h3>DevOps Foundations</h3>
+                <p>Explore CI/CD principles and delivery practices that improve software quality and release speed.</p>
+                <span class="btn btn-card">Enroll Now</span>
+            </a>
+            <a class="course-card searchable-course" href="https://www.linkedin.com/learning/sql-for-data-analysis-2" target="_blank" rel="noopener noreferrer" data-search="sql for data analysis beginner analytics databases query">
+                <span class="course-level">Beginner</span>
+                <h3>SQL for Data Analysis</h3>
+                <p>Query structured datasets efficiently and translate raw information into useful business insights.</p>
+                <span class="btn btn-card">Enroll Now</span>
+            </a>
+            <a class="course-card searchable-course" href="https://www.linkedin.com/learning/networking-foundations-networking-basics-23004671" target="_blank" rel="noopener noreferrer" data-search="networking foundations networking basics beginner infrastructure networks">
+                <span class="course-level">Beginner</span>
+                <h3>Networking Foundations</h3>
+                <p>Understand core networking principles, connectivity models, and the building blocks of enterprise systems.</p>
+                <span class="btn btn-card">Enroll Now</span>
+            </a>
+        </div>
+        <p id="noResultsMessage" class="no-results" hidden>No courses matched your search. Try a different keyword.</p>
+    </div>
+</section>
+{% endblock %}

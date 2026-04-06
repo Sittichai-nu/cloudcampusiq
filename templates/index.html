@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %}CloudCampusIQ | Learn Without Limits{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container hero-content">
+        <div class="hero-text">
+            <span class="section-eyebrow">Cloud-first online learning</span>
+            <h1>Learn Without Limits</h1>
+            <p>
+                Build in-demand skills with expertly curated technology courses designed for modern learners,
+                growing teams, and cloud-driven careers.
+            </p>
+            <div class="hero-actions">
+                <a href="/courses" class="btn btn-primary">Explore Courses</a>
+                <a href="#featured-courses" class="btn btn-secondary">View Featured Learning</a>
+            </div>
+        </div>
+        <div class="hero-panel">
+            <div class="hero-panel-card">
+                <h2>Hosted on Azure</h2>
+                <p>Reliable learning delivery with enterprise-grade performance, availability, and security.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="stats-bar">
+    <div class="container stats-grid">
+        <div class="stat-item">
+            <strong>10,000+</strong>
+            <span>Users</span>
+        </div>
+        <div class="stat-item">
+            <strong>500+</strong>
+            <span>Courses</span>
+        </div>
+        <div class="stat-item">
+            <strong>50,000+</strong>
+            <span>Students</span>
+        </div>
+        <div class="stat-item">
+            <strong>99.9%</strong>
+            <span>Uptime</span>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="featured-courses">
+    <div class="container">
+        <div class="section-heading">
+            <span class="section-eyebrow">Featured learning</span>
+            <h2>Start with Industry-Relevant Courses</h2>
+            <p>Explore popular programs built to strengthen practical skills across cloud, security, development, and analytics.</p>
+        </div>
+        <div class="course-grid featured-grid">
+            <a class="course-card" href="https://www.linkedin.com/learning/cloud-computing-understanding-core-concepts" target="_blank" rel="noopener noreferrer">
+                <span class="course-level">Beginner</span>
+                <h3>Cloud Computing Fundamentals</h3>
+                <p>Understand core cloud concepts, service models, and how modern infrastructure scales.</p>
+                <span class="course-link">Launch Course</span>
+            </a>
+            <a class="course-card" href="https://www.linkedin.com/learning/cybersecurity-awareness-cybersecurity-terminology" target="_blank" rel="noopener noreferrer">
+                <span class="course-level">Beginner</span>
+                <h3>Cybersecurity Essentials</h3>
+                <p>Learn foundational terminology and security practices that support safe digital operations.</p>
+                <span class="course-link">Launch Course</span>
+            </a>
+            <a class="course-card" href="https://www.linkedin.com/learning/building-full-stack-apps-with-react-and-spring" target="_blank" rel="noopener noreferrer">
+                <span class="course-level">Intermediate</span>
+                <h3>Full Stack Web Development</h3>
+                <p>Build complete applications by connecting modern front-end interfaces with backend services.</p>
+                <span class="course-link">Launch Course</span>
+            </a>
+            <a class="course-card" href="https://www.linkedin.com/learning/data-analysis-with-python-and-pandas" target="_blank" rel="noopener noreferrer">
+                <span class="course-level">Intermediate</span>
+                <h3>Data Analytics with Python</h3>
+                <p>Use Python and pandas to prepare, analyze, and visualize real-world datasets effectively.</p>
+                <span class="course-link">Launch Course</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="section section-muted">
+    <div class="container">
+        <div class="section-heading">
+            <span class="section-eyebrow">Platform strengths</span>
+            <h2>Designed for Modern Digital Learning</h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Fast and Scalable</h3>
+                <p>CloudCampusIQ runs on Azure App Service to deliver a dependable learning experience at scale.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Secure Platform</h3>
+                <p>Built with security-minded design to protect learner access, accounts, and course availability.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Access Anywhere</h3>
+                <p>Responsive design keeps your coursework available across desktops, tablets, and phones.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Certified Courses</h3>
+                <p>Support career growth with professional learning pathways aligned to valuable industry skills.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section cta-section">
+    <div class="container cta-card">
+        <div>
+            <span class="section-eyebrow">Take the next step</span>
+            <h2>Advance Your Skills with CloudCampusIQ</h2>
+            <p>Browse the full course catalog, enroll in guided learning, and keep building toward your goals.</p>
+        </div>
+        <a href="/login" class="btn btn-primary">Sign In to Start Learning</a>
+    </div>
+</section>
+{% endblock %}
