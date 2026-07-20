@@ -6,7 +6,9 @@
 [![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)](https://github.com/features/actions)
 
 ## Live Application
-🌐 [https://cloudcampusiq-anafeuh5dvbjd7fp.centralus-01.azurewebsites.net](https://cloudcampusiq-anafeuh5dvbjd7fp.centralus-01.azurewebsites.net)
+🌐 [https://cloudcampusiq.onrender.com](https://cloudcampusiq.onrender.com)
+
+*Originally deployed on Azure App Service (architecture below). Currently mirrored on Render's free tier while the Azure student subscription is between credit cycles. Free-tier note: the app sleeps after ~15 min idle and may take 30–60s to wake on first load.*
 
 ---
 
@@ -51,22 +53,25 @@ Students (Internet)
 
 ## Features
 
-- Professional multi-page web application
-- Course catalog with LinkedIn Learning integration
-- Student login page
+- Professional multi-page web application (home, course catalog, login)
 - Responsive design for all devices
-- HTTPS enforced with TLS 1.2
 - Automatic deployment via GitHub Actions CI/CD pipeline
+
+Note: the login page is a front-end demo — it is not yet wired to a backend authentication service.
 
 ---
 
-## Security Implementation
+## Cloud Infrastructure (configured on Azure)
 
-- Azure Active Directory with Role-Based Access Control (RBAC)
-- HTTPS Only enforced on Azure App Service
-- TLS 1.2 minimum inbound version
-- Private blob access — no anonymous access permitted
-- Storage Blob Data Reader role assigned to authenticated users
+As part of the cloud-engineering deliverable for this project, the following were configured directly on Azure (independent of the Flask app's own code):
+
+- Azure Active Directory app registration with Role-Based Access Control (RBAC)
+- Azure Blob Storage container with private access — no anonymous access permitted
+- HTTPS Only enforced on Azure App Service, TLS 1.2 minimum
+- Azure Monitor alert rule (Http5xx > 5 in 5 minutes)
+- Azure Cost Management spending dashboard
+
+These demonstrate Azure identity, storage, and monitoring configuration; wiring the Flask app itself to consume them (e.g., enforcing AD login) is a planned next step, not yet implemented in code.
 
 ---
 
