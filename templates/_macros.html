@@ -1,0 +1,65 @@
+{# Shared fragments. Kept in one place so a card looks the same wherever it
+   appears -- lesson pages, domain pages, phase pages and search all render the
+   same topic card. #}
+
+{% macro verify_badge(verified) %}
+<span class="verify-badge {{ 'verified' if verified else 'unverified' }}">{{ 'Verified' if verified else 'Unconfirmed' }}</span>
+{% endmacro %}
+
+
+{% macro breadcrumb(items) %}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+    {% for item in items %}
+        {% if item.url and not loop.last %}
+        <a href="{{ item.url }}">{{ item.label }}</a>
+        <span class="breadcrumb-sep" aria-hidden="true">/</span>
+        {% else %}
+        <span aria-current="page">{{ item.label }}</span>
+        {% endif %}
+    {% endfor %}
+</nav>
+{% endmacro %}
+
+
+{% macro topic_card(topic, show_lesson=True) %}
+<a class="topic-tile" href="{{ url_for('pages.topic_detail', slug=topic.slug) }}">
+    <div class="topic-tile-head">
+        <span class="kind-badge kind-{{ topic.kind }}">{{ topic.kind }}</span>
+        {% if topic.phase %}
+        <span class="phase-badge">{{ topic.phase.name }}</span>
+        {% endif %}
+        {% if topic.visual %}
+        <span class="visual-badge" title="Includes a diagram">◧ diagram</span>
+        {% endif %}
+    </div>
+    <h3>{{ topic.title }}</h3>
+    {% if topic.summary %}<p>{{ topic.summary }}</p>{% endif %}
+    <div class="topic-tile-foot">
+        {% for objective in topic.objectives %}
+        <span class="objective-tag">Obj {{ objective.code }}</span>
+        {% endfor %}
+        {% if show_lesson %}
+        <span class="topic-tile-origin">{{ topic.lesson.course.code }} · Lesson {{ topic.lesson.number }}</span>
+        {% endif %}
+    </div>
+</a>
+{% endmacro %}
+
+
+{% macro visual_panel(kind, title, caption, markup, open_by_default=False) %}
+<figure class="visual-panel" data-visual>
+    <div class="visual-head">
+        <figcaption>
+            <strong>{{ title or 'Diagram' }}</strong>
+            <span class="visual-kind">{{ kind }}</span>
+        </figcaption>
+        <button type="button" class="visual-toggle" data-visual-toggle aria-expanded="{{ 'true' if open_by_default else 'false' }}">
+            Hide diagram
+        </button>
+    </div>
+    <div class="visual-body" data-visual-body>
+        {{ markup }}
+        {% if caption %}<p class="visual-caption">{{ caption }}</p>{% endif %}
+    </div>
+</figure>
+{% endmacro %}

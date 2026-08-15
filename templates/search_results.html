@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}CloudCampusIQ | Search{% endblock %}
+
+{% block content %}
+<section class="page-header page-header-tight">
+    <div class="container">
+        <span class="section-eyebrow">Search</span>
+        <h1>{% if query %}Results for “{{ query }}”{% else %}Search{% endif %}</h1>
+        <p>
+            {% if query %}
+                {{ total }} result{{ 's' if total != 1 else '' }} across topics, lessons, courses, objectives, and phases.
+            {% else %}
+                Search topic text, lesson titles, objective codes, and phase names.
+            {% endif %}
+        </p>
+        <form class="search-panel" action="{{ url_for('pages.search') }}" method="get" role="search">
+            <label for="q" class="search-label">Search</label>
+            <input type="search" id="q" name="q" class="search-input" value="{{ query }}"
+                   placeholder="e.g. business case, ROI, 2.1, planning" autofocus>
+        </form>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        {% if query and total == 0 %}
+        <p class="no-results">Nothing matched “{{ query }}”. Try a shorter term, or browse
+            <a href="{{ url_for('pages.topics_index') }}">all topics</a>.</p>
+        {% endif %}
+
+        {% if results.topic %}
+        <div class="section-heading"><h2>Topics</h2></div>
+        <ul class="result-list">
+            {% for hit in results.topic %}
+            <li class="result-item">
+                <a class="result-title" href="{{ url_for('pages.topic_detail', slug=hit.obj.slug) }}">
+                    {{ hit.obj.title | highlight(query) }}
+                </a>
+                <span class="result-origin">{{ hit.obj.lesson.course.code }} · Lesson {{ hit.obj.lesson.number }} · {{ hit.obj.kind }}</span>
+                {% if hit.snippet %}<p class="result-snippet">{{ hit.snippet | highlight(query) }}</p>{% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if results.lesson %}
+        <div class="section-heading"><h2>Lessons</h2></div>
+        <ul class="result-list">
+            {% for hit in results.lesson %}
+            <li class="result-item">
+                <a class="result-title" href="{{ url_for('pages.lesson_detail', course_code=hit.obj.course.code, number=hit.obj.number) }}">
+                    Lesson {{ hit.obj.number }}: {{ hit.obj.title | highlight(query) }}
+                </a>
+                <span class="result-origin">{{ hit.obj.course.code }} · {{ hit.snippet }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if results.course %}
+        <div class="section-heading"><h2>Courses</h2></div>
+        <ul class="result-list">
+            {% for hit in results.course %}
+            <li class="result-item">
+                <a class="result-title" href="{{ url_for('pages.course_detail', course_code=hit.obj.code) }}">
+                    {{ hit.obj.title | highlight(query) }}
+                </a>
+                <span class="result-origin">{{ hit.obj.code }}</span>
+                <p class="result-snippet">{{ hit.snippet | highlight(query) }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if results.objective %}
+        <div class="section-heading"><h2>Objectives</h2></div>
+        <ul class="result-list">
+            {% for hit in results.objective %}
+            <li class="result-item">
+                <a class="result-title" href="{{ url_for('pages.domain_detail', code=hit.obj.domain.code) }}">
+                    Objective {{ hit.obj.code | highlight(query) }} {{ hit.obj.title }}
+                </a>
+                <span class="result-origin">Domain {{ hit.obj.domain.code }} · {{ hit.snippet }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if results.phase %}
+        <div class="section-heading"><h2>Phases</h2></div>
+        <ul class="result-list">
+            {% for hit in results.phase %}
+            <li class="result-item">
+                <a class="result-title" href="{{ url_for('pages.phase_detail', slug=hit.obj.slug) }}">
+                    {{ hit.obj.name | highlight(query) }}
+                </a>
+                <p class="result-snippet">{{ hit.snippet | highlight(query) }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% from '_macros.html' import topic_card %}
+
+{% block title %}CloudCampusIQ | All Topics{% endblock %}
+
+{% macro filter_link(label, param, value, active) %}
+    {% set args = dict(active) %}
+    {% set _ = args.update({param: '' if args[param] == value else value}) %}
+    <a class="filter-chip {{ 'on' if active[param] == value else '' }}"
+       href="{{ url_for('pages.topics_index', **args) }}">{{ label }}</a>
+{% endmacro %}
+
+{% block content %}
+<section class="page-header page-header-tight">
+    <div class="container">
+        <span class="section-eyebrow">Topic index</span>
+        <h1>All Topics</h1>
+        <p>Every topic on the platform. Narrow by exam domain, life cycle phase, or the kind of thing it is — the filters combine.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="filter-bar">
+            <div class="filter-group">
+                <span class="filter-label">Domain</span>
+                {% for domain in domains %}
+                    {{ filter_link(domain.label, 'domain', domain.code, active) }}
+                {% endfor %}
+            </div>
+            <div class="filter-group">
+                <span class="filter-label">Phase</span>
+                {% for phase in phases %}
+                    {{ filter_link(phase.name, 'phase', phase.slug, active) }}
+                {% endfor %}
+            </div>
+            <div class="filter-group">
+                <span class="filter-label">Kind</span>
+                {% for kind in kinds %}
+                    {{ filter_link(kind, 'kind', kind, active) }}
+                {% endfor %}
+            </div>
+            {% if active.domain or active.phase or active.kind %}
+            <a class="filter-clear" href="{{ url_for('pages.topics_index') }}">Clear filters</a>
+            {% endif %}
+        </div>
+
+        <p class="result-count">{{ topics|length }} topic{{ 's' if topics|length != 1 else '' }}</p>
+
+        <div class="topic-tile-grid">
+            {% for topic in topics %}
+            {{ topic_card(topic) }}
+            {% else %}
+            <p class="no-results">No topics match those filters.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

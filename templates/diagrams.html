@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% from '_macros.html' import visual_panel %}
+
+{% block title %}CloudCampusIQ | Diagram Catalog{% endblock %}
+
+{% block content %}
+<section class="page-header page-header-tight">
+    <div class="container">
+        <span class="section-eyebrow">For content authors</span>
+        <h1>Diagram Catalog</h1>
+        <p>
+            Every diagram type the platform can draw, with the YAML that produces it.
+            Attach one to any topic with a <code>visual:</code> block. All samples on this
+            page use placeholder data — this is renderer documentation, not course material.
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        {% for example in examples %}
+        <div class="diagram-example">
+            <div class="section-heading">
+                <h2><code>kind: {{ example.kind }}</code></h2>
+                <p>{{ example.blurb }}</p>
+            </div>
+
+            {{ visual_panel(
+                example.kind,
+                example.title,
+                example.caption,
+                render_visual(example.kind, example.data, example.title),
+                open_by_default=True
+            ) }}
+        </div>
+        {% endfor %}
+
+        <div class="topic-card">
+            <h2 class="topic-section-title">Adding a new renderer</h2>
+            <ol class="topic-list">
+                <li>Write a pure <code>render_x(data, title="") -&gt; str</code> in <code>visuals.py</code>.</li>
+                <li>Register it in the <code>RENDERERS</code> dict.</li>
+                <li>Add an entry to <code>EXAMPLES</code> — that is what this page renders.</li>
+                <li>Add a test in <code>tests/test_visuals.py</code>.</li>
+            </ol>
+            <p>Specs are rendered once when content loads, so a malformed diagram fails the build instead of showing up as a blank panel.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}
