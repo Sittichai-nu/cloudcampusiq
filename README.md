@@ -14,7 +14,46 @@
 
 ## Project Overview
 
-CloudCampusIQ is a fully deployed cloud-based online learning platform built on Microsoft Azure. The platform is designed to support up to 10,000 concurrent users and delivers course content securely through a professional web application. This project demonstrates real-world cloud engineering, DevOps practices, and web application development skills.
+CloudCampusIQ is a deployed cloud-based learning platform. It serves structured
+course content — courses, lessons, and topics — and makes that content navigable
+from whichever direction a learner already knows: by course, by exam domain and
+objective, by project life cycle phase, or by free-text search.
+
+Course content lives as YAML in version control and is compiled into a queryable
+database at deploy time. Topics carry their own relationships, procedures, and
+diagrams, so a topic page can answer "where does this fit?" rather than being a
+dead end.
+
+---
+
+## What it does
+
+**Content is structured, not just formatted.** Every topic knows:
+
+- which **lesson** and **course** it belongs to
+- which **exam domain and objective** it satisfies, with the objective's own
+  sub-point checklist so a reader can self-test
+- which **project life cycle phase** it applies to
+- what **kind** of thing it is — concept, tool, document, process, or formula
+- which other topics **relate** to it — both hand-authored links and topics
+  automatically cross-linked because they share an objective
+- an ordered list of **steps**, where the topic describes a procedure
+- an optional **diagram**, rendered as inline SVG from the topic's own data
+
+**Ways to find something:**
+
+| Route | What it does |
+|---|---|
+| `/courses` | Course catalog, rendered from `content/` |
+| `/courses/<code>` | Lessons in a course |
+| `/courses/<code>/lesson/<n>` | Topics in a lesson |
+| `/topics` | Every topic, filterable by domain × phase × kind |
+| `/topics/<slug>` | A topic, with its full "Where this fits" panel |
+| `/domains`, `/domains/<code>` | Browse by exam domain and objective |
+| `/phases`, `/phases/<slug>` | Browse by project life cycle phase |
+| `/search?q=` | Site-wide search over topic text, titles, and objective codes |
+| `/diagrams` | Diagram renderer catalog, for content authors |
+| `/api/v1/…` | JSON API mirroring all of the above |
 
 ---
 
@@ -26,11 +65,18 @@ Students (Internet)
         ↓
   Azure App Service (PaaS)
   ├── Flask Web Application
+  │   ├── content/*.yaml  ── source of truth, in version control
+  │   └── SQLite          ── disposable read cache, rebuilt at deploy
   ├── Azure Blob Storage (Course Materials)
   ├── Azure Active Directory (IAM)
   ├── Azure Monitor (Performance Alerts)
   └── Azure Cost Management (Spending Dashboard)
 ```
+
+**Why SQLite is disposable:** neither deploy target keeps a local file across a
+redeploy, so the database is rebuilt from YAML on every deploy rather than
+treated as durable storage. Content changes ship through `git`, and the database
+is never the thing being edited.
 
 ---
 
@@ -40,24 +86,76 @@ Students (Internet)
 |---|---|
 | Cloud Provider | Microsoft Azure |
 | Hosting | Azure App Service (PaaS) |
-| Backend | Python 3.12 + Flask |
-| Frontend | HTML5, CSS3, JavaScript |
+| Backend | Python 3.12 + Flask + SQLAlchemy |
+| Content | YAML compiled to SQLite at deploy time |
+| Frontend | HTML5, CSS3, JavaScript, server-rendered inline SVG |
 | Storage | Azure Blob Storage |
 | Security | Azure Active Directory + RBAC |
 | Monitoring | Azure Monitor |
 | Cost Management | Azure Cost Management |
 | CI/CD | GitHub Actions |
-| Version Control | Git + GitHub |
+| Testing | pytest |
+
+No frontend framework and no charting library: diagrams are SVG generated on the
+server, so pages render fully without JavaScript and without a CDN request.
 
 ---
 
-## Features
+## Local Development
 
-- Professional multi-page web application (home, course catalog, login)
-- Responsive design for all devices
-- Automatic deployment via GitHub Actions CI/CD pipeline
+```bash
+git clone https://github.com/Sittichai-nu/cloudcampusiq.git
+cd cloudcampusiq
+```
 
-Note: the login page is a front-end demo — it is not yet wired to a backend authentication service.
+Everything routine goes through one script:
+
+| Command | Does |
+|---|---|
+| `.\dev.ps1` | rebuild content, serve on http://localhost:5000 |
+| `.\dev.ps1 rebuild` | rebuild the content database from YAML |
+| `.\dev.ps1 test` | run the test suite |
+| `.\dev.ps1 check` | rebuild + test + banned-string scan |
+| `.\dev.ps1 install` | install runtime and dev dependencies |
+
+`dev.sh` is the POSIX equivalent with the same subcommands.
+
+---
+
+## Adding content
+
+```
+content/<course>/
+├── course.yaml      code, title, description
+├── domains.yaml     exam domains and objectives
+├── phases.yaml      project life cycle phases
+└── lesson_NN.yaml   one file per lesson
+```
+
+A new folder with a `course.yaml` appears in the catalog automatically — nothing
+is hardcoded in a template. Only `title` and `body` are required on a topic;
+every other field adds another way to find it later.
+
+The loader validates strictly and fails the build on an unknown topic kind, an
+undefined phase, a `related` slug pointing at nothing, a duplicate slug, or a
+malformed diagram spec. Bad content breaks the build rather than rendering as a
+blank panel.
+
+See `.claude/skills/dev/SKILL.md` for the full authoring reference, or `/diagrams`
+in the running app for the diagram catalog.
+
+---
+
+## Testing
+
+```bash
+.\dev.ps1 test
+```
+
+110 tests covering the content loader's validation rules, body formatting, each
+diagram renderer, search ranking, every page route, and the JSON API contract.
+Tests run against the real `content/` tree, so a schema change that breaks
+published content fails the suite.
 
 ---
 
@@ -73,6 +171,8 @@ As part of the cloud-engineering deliverable for this project, the following wer
 
 These demonstrate Azure identity, storage, and monitoring configuration; wiring the Flask app itself to consume them (e.g., enforcing AD login) is a planned next step, not yet implemented in code.
 
+Note: the login page is a front-end demo — it is not yet wired to a backend authentication service.
+
 ---
 
 ## DevOps Pipeline
@@ -84,6 +184,7 @@ Every push to the `main` branch automatically:
 3. Installs all dependencies
 4. Packages the application
 5. Deploys to Azure App Service
+
 ```yaml
 on:
   push:
@@ -96,46 +197,19 @@ on:
 ## Project Structure
 ```
 cloudcampusiq/
-├── app.py                        # Flask application routes
-├── requirements.txt              # Python dependencies
-├── .github/
-│   └── workflows/
-│       └── deploy.yml            # GitHub Actions CI/CD pipeline
+├── app.py                  # App factory, page routes, Jinja filters
+├── api.py                  # JSON API blueprint (/api/v1)
+├── models.py               # Course, Lesson, Topic, Domain, Objective, Phase, Visual
+├── content_loader.py       # YAML → database, with strict validation
+├── visuals.py              # Diagram renderers (gantt, flow, table)
+├── formatting.py           # Topic body → HTML
+├── search.py               # Site-wide search
+├── dev.ps1 / dev.sh        # Developer entry point
+├── content/                # Course content — the source of truth
+├── templates/
 ├── static/
-│   ├── css/
-│   │   └── style.css             # Stylesheet
-│   └── js/
-│       └── main.js               # JavaScript
-└── templates/
-    ├── base.html                 # Base template
-    ├── index.html                # Homepage
-    ├── courses.html              # Course catalog
-    └── login.html                # Student login
-```
-
----
-
-## Local Development
-
-**Clone the repository:**
-```bash
-git clone https://github.com/Sittichai-nu/cloudcampusiq.git
-cd cloudcampusiq
-```
-
-**Install dependencies:**
-```bash
-pip install -r requirements.txt
-```
-
-**Run locally:**
-```bash
-python app.py
-```
-
-**Open browser:**
-```
-http://localhost:5000
+├── tests/
+└── .github/workflows/deploy.yml
 ```
 
 ---

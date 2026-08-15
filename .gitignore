@@ -22,3 +22,12 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
+
+# Database (rebuilt from content/*.yaml on every boot -- never committed)
+instance/
+*.db
+*.sqlite3
+
+# The project's Claude Code skill is part of the repo. A global gitignore
+# excludes .claude/, so it has to be re-included here.
+!.claude/
