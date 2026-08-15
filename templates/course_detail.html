@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% from '_macros.html' import breadcrumb, verify_badge %}
+
+{% block title %}CloudCampusIQ | {{ course.title }}{% endblock %}
+
+{% block content %}
+<section class="page-header page-header-tight">
+    <div class="container">
+        {{ breadcrumb([
+            {'label': 'Courses', 'url': url_for('pages.courses')},
+            {'label': course.code}
+        ]) }}
+        <span class="section-eyebrow">{{ course.code }}</span>
+        <h1>{{ course.title }}</h1>
+        <p>{{ course.description }}</p>
+        <div class="header-actions">
+            <a class="btn btn-secondary" href="{{ url_for('pages.topics_index') }}">Browse all topics</a>
+            <a class="btn btn-secondary" href="{{ url_for('pages.domains_index') }}">By exam domain</a>
+            <a class="btn btn-secondary" href="{{ url_for('pages.phases_index') }}">By life cycle phase</a>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-heading">
+            <h2>Lessons</h2>
+            <p>Lessons are published only after being individually verified against the source material — a lesson that has not been re-verified will not appear.</p>
+        </div>
+        <div class="course-grid">
+            {% for lesson in course.lessons %}
+            <a class="course-card" href="{{ url_for('pages.lesson_detail', course_code=course.code, number=lesson.number) }}">
+                {{ verify_badge(lesson.verified) }}
+                <h3>Lesson {{ lesson.number }}: {{ lesson.title }}</h3>
+                <p>{{ lesson.topics|length }} topic{{ 's' if lesson.topics|length != 1 else '' }}</p>
+                <span class="btn btn-card">View Lesson</span>
+            </a>
+            {% else %}
+            <p class="no-results">No lessons published yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

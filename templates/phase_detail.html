@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% from '_macros.html' import breadcrumb, topic_card %}
+
+{% block title %}CloudCampusIQ | {{ phase.name }} Phase{% endblock %}
+
+{% block content %}
+<section class="page-header page-header-tight">
+    <div class="container">
+        {{ breadcrumb([
+            {'label': 'Phases', 'url': url_for('pages.phases_index')},
+            {'label': phase.name}
+        ]) }}
+        <span class="section-eyebrow">Phase {{ phase.order }}</span>
+        <h1>{{ phase.name }}</h1>
+        <p>{{ phase.summary }}</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <ol class="phase-strip">
+            {% for other in phases %}
+            <li>
+                <a class="phase-strip-item {{ 'on' if other.id == phase.id else '' }}"
+                   href="{{ url_for('pages.phase_detail', slug=other.slug) }}">
+                    {{ other.order }}. {{ other.name }}
+                </a>
+            </li>
+            {% endfor %}
+        </ol>
+
+        <div class="section-heading">
+            <h2>Topics in this phase</h2>
+            <p>{{ phase.topics|length }} topic{{ 's' if phase.topics|length != 1 else '' }}</p>
+        </div>
+        <div class="topic-tile-grid">
+            {% for topic in phase.topics %}
+            {{ topic_card(topic) }}
+            {% else %}
+            <p class="no-results">No topics are assigned to this phase yet. Add <code>phase: {{ phase.slug }}</code> to a topic in <code>content/</code>.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

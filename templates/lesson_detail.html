@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% from '_macros.html' import breadcrumb, verify_badge, topic_card %}
+
+{% block title %}CloudCampusIQ | Lesson {{ lesson.number }} — {{ course.code }}{% endblock %}
+
+{% block content %}
+<section class="page-header page-header-tight">
+    <div class="container">
+        {{ breadcrumb([
+            {'label': 'Courses', 'url': url_for('pages.courses')},
+            {'label': course.code, 'url': url_for('pages.course_detail', course_code=course.code)},
+            {'label': 'Lesson ' ~ lesson.number}
+        ]) }}
+        <span class="section-eyebrow">{{ course.code }} · Lesson {{ lesson.number }}</span>
+        <h1>{{ lesson.title }}</h1>
+        <p>
+            {{ verify_badge(lesson.verified) }}
+            {{ lesson.source }}
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-heading">
+            <h2>{{ lesson.topics|length }} topic{{ 's' if lesson.topics|length != 1 else '' }}</h2>
+            <p>Open a topic to see its exam domain, life cycle phase, steps, diagram, and related topics.</p>
+        </div>
+
+        <div class="topic-tile-grid">
+            {% for topic in lesson.topics %}
+            {{ topic_card(topic, show_lesson=False) }}
+            {% endfor %}
+        </div>
+
+        <a class="course-link" href="{{ url_for('pages.course_detail', course_code=course.code) }}">&larr; Back to {{ course.title }}</a>
+    </div>
+</section>
+{% endblock %}

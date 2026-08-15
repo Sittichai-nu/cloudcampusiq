@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% from '_macros.html' import breadcrumb, topic_card %}
+
+{% block title %}CloudCampusIQ | Domain {{ domain.code }}{% endblock %}
+
+{% block content %}
+<section class="page-header page-header-tight">
+    <div class="container">
+        {{ breadcrumb([
+            {'label': 'Domains', 'url': url_for('pages.domains_index')},
+            {'label': 'Domain ' ~ domain.code}
+        ]) }}
+        <span class="section-eyebrow">Domain {{ domain.code }}</span>
+        <h1>{{ domain.title or 'Domain ' ~ domain.code }}</h1>
+        {% if domain.summary %}
+        <p>{{ domain.summary }}</p>
+        {% elif not domain.title %}
+        <p class="fits-empty">This domain has no title yet. Add one to <code>content/pm101/domains.yaml</code> and it will appear here.</p>
+        {% endif %}
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-heading">
+            <h2>Objectives</h2>
+        </div>
+        <ul class="objective-list">
+            {% for objective in domain.objectives %}
+            <li class="objective-row">
+                <div class="objective-row-head">
+                    <span class="objective-tag">Obj {{ objective.code }}</span>
+                    <span class="objective-title">{{ objective.title or 'Title not stated in the source appendix' }}</span>
+                    <span class="objective-count">{{ objective.topics|length }} topic{{ 's' if objective.topics|length != 1 else '' }}</span>
+                </div>
+                {% set points = objective.point_list() %}
+                {% if points %}
+                <ul class="exam-points">
+                    {% for point in points %}
+                    <li>{{ point }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% if objective.topics %}
+                <p class="objective-topics">
+                    Covered by:
+                    {% for topic in objective.topics %}
+                    <a href="{{ url_for('pages.topic_detail', slug=topic.slug) }}">{{ topic.title }}</a>{{ ", " if not loop.last }}
+                    {% endfor %}
+                </p>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+
+        {% set topics = domain.topics() %}
+        <div class="section-heading">
+            <h2>Topics in this domain</h2>
+            <p>{{ topics|length }} topic{{ 's' if topics|length != 1 else '' }}</p>
+        </div>
+        <div class="topic-tile-grid">
+            {% for topic in topics %}
+            {{ topic_card(topic) }}
+            {% else %}
+            <p class="no-results">No topics are mapped to this domain yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

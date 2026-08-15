@@ -14,17 +14,38 @@
 <section class="section">
     <div class="container">
         <div class="search-panel">
-            <label for="courseSearch" class="search-label">Search courses</label>
+            <label for="courseSearch" class="search-label">Filter this catalog</label>
             <input
                 type="text"
                 id="courseSearch"
                 class="search-input"
                 placeholder="Search by title, topic, or level"
-                aria-label="Search courses"
+                aria-label="Filter the course catalog"
             >
+            <p class="search-hint">
+                Looking for something inside a course? Use
+                <a href="{{ url_for('pages.search') }}">site search</a> to search topic text and objectives.
+            </p>
         </div>
 
         <div class="course-grid course-catalog">
+            {# Courses published on this site come from content/ -- adding a folder
+               there makes a card appear here with no template change. #}
+            {% for course in courses %}
+            <a class="course-card searchable-course"
+               href="{{ url_for('pages.course_detail', course_code=course.code) }}"
+               data-search="{{ course.code|lower }} {{ course.title|lower }} {{ course.description|lower }} in-site">
+                <span class="course-level">In this site</span>
+                <h3>{{ course.title }}</h3>
+                <p>{{ course.description }}</p>
+                <span class="course-meta">
+                    {{ course.lessons|length }} lesson{{ 's' if course.lessons|length != 1 else '' }} ·
+                    {{ course.topic_count() }} topic{{ 's' if course.topic_count() != 1 else '' }}
+                </span>
+                <span class="btn btn-card">View Lessons</span>
+            </a>
+            {% endfor %}
+
             <a class="course-card searchable-course" href="https://www.linkedin.com/learning/cloud-computing-understanding-core-concepts" target="_blank" rel="noopener noreferrer" data-search="cloud computing fundamentals core concepts beginner infrastructure azure cloud">
                 <span class="course-level">Beginner</span>
                 <h3>Cloud Computing Fundamentals</h3>

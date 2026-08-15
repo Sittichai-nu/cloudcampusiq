@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}CloudCampusIQ | Not Found{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <span class="section-eyebrow">404</span>
+        <h1>That page does not exist</h1>
+        <p>The link may be out of date, or the content may not be published yet.</p>
+        <div class="header-actions">
+            <a class="btn btn-primary" href="{{ url_for('pages.topics_index') }}">Browse all topics</a>
+            <a class="btn btn-secondary" href="{{ url_for('pages.courses') }}">Course catalog</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

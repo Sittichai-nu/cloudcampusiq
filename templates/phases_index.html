@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}CloudCampusIQ | Life Cycle Phases{% endblock %}
+
+{% block content %}
+<section class="page-header page-header-tight">
+    <div class="container">
+        <span class="section-eyebrow">Browse by phase</span>
+        <h1>Project Life Cycle Phases</h1>
+        <p>Where in a project each topic applies. Follow the phases in order, or jump straight to the one you are working in.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <ol class="phase-track">
+            {% for phase in phases %}
+            <li>
+                <a class="phase-track-card" href="{{ url_for('pages.phase_detail', slug=phase.slug) }}">
+                    <span class="phase-number">{{ phase.order }}</span>
+                    <h3>{{ phase.name }}</h3>
+                    <p>{{ phase.summary }}</p>
+                    <span class="phase-count">{{ phase.topics|length }} topic{{ 's' if phase.topics|length != 1 else '' }}</span>
+                </a>
+            </li>
+            {% else %}
+            <p class="no-results">No phases defined yet.</p>
+            {% endfor %}
+        </ol>
+    </div>
+</section>
+{% endblock %}

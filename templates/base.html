@@ -12,12 +12,24 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <a href="/">CloudCampusIQ</a>
+                <a href="{{ url_for('pages.home') }}">CloudCampusIQ</a>
             </div>
+            <form class="nav-search" action="{{ url_for('pages.search') }}" method="get" role="search">
+                <input
+                    type="search"
+                    name="q"
+                    value="{{ request.args.get('q', '') }}"
+                    placeholder="Search topics, lessons, objectives…"
+                    aria-label="Search the site"
+                >
+                <button type="submit" aria-label="Search">Search</button>
+            </form>
             <div class="nav-links">
-                <a href="/">Home</a>
-                <a href="/courses">Courses</a>
-                <a href="/login" class="btn-nav">Login</a>
+                <a href="{{ url_for('pages.courses') }}">Courses</a>
+                <a href="{{ url_for('pages.topics_index') }}">Topics</a>
+                <a href="{{ url_for('pages.domains_index') }}">Domains</a>
+                <a href="{{ url_for('pages.phases_index') }}">Phases</a>
+                <a href="{{ url_for('pages.login') }}" class="btn-nav">Login</a>
             </div>
         </div>
     </nav>
@@ -31,26 +43,15 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
-            <div class="footer-brand">
-                <h3>CloudCampusIQ</h3>
-                <p>Empowering learners through cloud technology</p>
-            </div>
-            <div class="footer-links">
-                <h4>Quick Links</h4>
-                <a href="/">Home</a>
-                <a href="/courses">Courses</a>
-                <a href="/login">Login</a>
-            </div>
-            <div class="footer-info">
-                <h4>Platform</h4>
-                <p>Built for Microsoft Azure App Service</p>
-                <p>Secured with HTTPS</p>
-                <p>CI/CD via GitHub Actions</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2026 CloudCampusIQ. All rights reserved.</p>
-            <p>Cloud Architecture | Secure | Scalable</p>
+            <span class="footer-brand">CloudCampusIQ</span>
+            <nav class="footer-links">
+                <a href="{{ url_for('pages.courses') }}">Courses</a>
+                <a href="{{ url_for('pages.topics_index') }}">Topics</a>
+                <a href="{{ url_for('pages.domains_index') }}">Domains</a>
+                <a href="{{ url_for('pages.phases_index') }}">Phases</a>
+                <a href="{{ url_for('pages.diagrams') }}">Diagrams</a>
+            </nav>
+            <span class="footer-copy">© 2026 CloudCampusIQ</span>
         </div>
     </footer>
 

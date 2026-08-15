@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}CloudCampusIQ | Exam Domains{% endblock %}
+
+{% block content %}
+<section class="page-header page-header-tight">
+    <div class="container">
+        <span class="section-eyebrow">Browse by domain</span>
+        <h1>Exam Domains</h1>
+        <p>Every topic is mapped to the objectives it covers. Start from a domain to see everything that sits underneath it.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="course-grid">
+            {% for domain in domains %}
+            {% set topics = domain.topics() %}
+            <a class="course-card" href="{{ url_for('pages.domain_detail', code=domain.code) }}">
+                <span class="course-level">Domain {{ domain.code }}</span>
+                <h3>{{ domain.title or 'Domain ' ~ domain.code }}</h3>
+                <p>
+                    {{ domain.objectives|length }} objective{{ 's' if domain.objectives|length != 1 else '' }} ·
+                    {{ topics|length }} topic{{ 's' if topics|length != 1 else '' }}
+                </p>
+                <span class="btn btn-card">View Domain</span>
+            </a>
+            {% else %}
+            <p class="no-results">No domains defined yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

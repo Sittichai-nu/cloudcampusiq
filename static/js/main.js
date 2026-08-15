@@ -5,7 +5,30 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeSmoothScroll();
     initializeActiveNav();
     initializeLoginValidation();
+    initializeVisualToggles();
 });
+
+// Diagrams are rendered server-side and are already in the DOM, so they are
+// visible with JavaScript disabled. This only adds the ability to collapse one.
+function initializeVisualToggles() {
+    const toggles = document.querySelectorAll('[data-visual-toggle]');
+
+    toggles.forEach((toggle) => {
+        const panel = toggle.closest('[data-visual]');
+        const body = panel ? panel.querySelector('[data-visual-body]') : null;
+
+        if (!body) {
+            return;
+        }
+
+        toggle.addEventListener('click', () => {
+            const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+            toggle.setAttribute('aria-expanded', String(!isOpen));
+            body.hidden = isOpen;
+            toggle.textContent = isOpen ? 'Show diagram' : 'Hide diagram';
+        });
+    });
+}
 
 function initializeCourseSearch() {
     const searchInput = document.getElementById('courseSearch');
