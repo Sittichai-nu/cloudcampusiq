@@ -1,0 +1,46 @@
+# Project life cycle phases.
+#
+# Every phase and summary below is taken verbatim in substance from the
+# verified Lesson 1 topic "Understand Project Management Basics". Nothing here
+# is new material -- the phases are promoted out of that topic's body into
+# first-class records so topics can point at the phase they belong to, and so
+# a reader can browse the site by "when in a project does this happen?".
+#
+# A topic references a phase by its `slug`. The loader rejects any topic naming
+# a phase that is not listed here.
+
+phases:
+  - slug: discovery
+    name: Discovery
+    order: 1
+    summary: >
+      Before the project exists. Leaders check whether the idea is feasible.
+      Most ideas stop here.
+
+  - slug: initiation
+    name: Initiation
+    order: 2
+    summary: >
+      The idea is approved. Define the goals and deliverables, then kick off
+      the team.
+
+  - slug: planning
+    name: Planning
+    order: 3
+    summary: >
+      Turn those goals into a detailed plan: activities, sequence, resources,
+      and tracking.
+
+  - slug: execution
+    name: Execution
+    order: 4
+    summary: >
+      The team builds the thing. Keep the work in sync and solve problems as
+      they come up.
+
+  - slug: closing
+    name: Closing
+    order: 5
+    summary: >
+      Confirm the work is done, finalize documentation and budget, get
+      sign-off, then the team disbands.

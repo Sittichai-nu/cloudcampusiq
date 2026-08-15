@@ -1,0 +1,159 @@
+# Exam domains and objectives.
+#
+# Source: "Appendix A — Mapping Course Content to CompTIA Project+ (Exam
+# PK0-005) Objectives", from the official course Resources. Domain and
+# objective titles are quoted from that appendix.
+#
+# `exam_points` lists the sub-points the appendix maps to the lessons published
+# on this site. They are the exam-facing checklist for an objective: read the
+# topic, then check yourself against these. Objectives whose content is not
+# published here yet carry a title but no points.
+#
+# Any objective code used by a topic but not declared here is created
+# automatically with a blank title, and its domain is derived from the code
+# prefix (2.1 -> domain 2.0).
+
+domains:
+  - code: "1.0"
+    title: "Project Management Concepts"
+    summary: >
+      The vocabulary and mechanics of running a project: what counts as a
+      project, which methodology fits, and how change, risk, issues, schedule,
+      quality, communication, meetings, people, and procurement are handled.
+    objectives:
+      - code: "1.1"
+        title: >-
+          Explain the basic characteristics of a project and various
+          methodologies and frameworks used in IT projects.
+        exam_points:
+          - "Characteristics of a project: unique; reason/purpose; start and finish"
+          - "Project as part of a program"
+          - "Project as part of a portfolio"
+
+      - code: "1.2"
+        title: "Compare and contrast Agile vs. Waterfall concepts."
+
+      - code: "1.3"
+        title: >-
+          Given a scenario, apply the change control process throughout the
+          project life cycle.
+
+      - code: "1.4"
+        title: "Given a scenario, perform risk management activities."
+
+      - code: "1.5"
+        title: "Given a scenario, perform issue management activities."
+
+      - code: "1.6"
+        title: >-
+          Given a scenario, apply schedule development and management
+          activities and techniques.
+
+      - code: "1.7"
+        title: >-
+          Compare and contrast quality management concepts and performance
+          management concepts.
+
+      - code: "1.8"
+        title: "Compare and contrast communication management concepts."
+
+      - code: "1.9"
+        title: "Given a scenario, apply effective meeting management techniques."
+
+      - code: "1.10"
+        title: >-
+          Given a scenario, perform basic activities related to team and
+          resource management.
+        exam_points:
+          - "Organizational structures: matrix; projectized; functional"
+          - "Roles and responsibilities: sponsor; stakeholders; senior management"
+          - "Roles and responsibilities: project manager; program manager; product manager"
+          - "Roles and responsibilities: project management office; end users"
+
+      - code: "1.11"
+        title: "Explain important project procurement and vendor selection concepts."
+
+  - code: "2.0"
+    title: "Project Life Cycle Phases"
+    summary: >
+      What actually gets done in each phase — discovery, initiation, planning,
+      execution, and closing — and which artifacts each phase produces.
+    objectives:
+      - code: "2.1"
+        title: >-
+          Explain the value of artifacts in the discovery/concept preparation
+          phase for a project.
+        exam_points:
+          - "Business case or business objective"
+          - "Return on investment analysis"
+          - "Current state vs. future state"
+
+      - code: "2.2"
+        title: "Given a scenario, perform activities during the project initiation phase."
+
+      - code: "2.3"
+        title: "Given a scenario, perform activities during the project planning phase."
+
+      - code: "2.4"
+        title: "Given a scenario, perform activities during the project execution phase."
+
+      # The appendix prints "2.5 Exam Objective" as a placeholder rather than
+      # the objective's wording, so the title is left blank rather than guessed.
+      # Its mapped content is project closure: evaluation, validating
+      # deliverables, closing contracts, releasing resources, and sign-off.
+      - code: "2.5"
+        title: ""
+
+  - code: "3.0"
+    title: "Tools and Documentation"
+    summary: >
+      The charts, logs, and productivity tools a project runs on, and how to
+      read a quality or performance chart to make a decision.
+    objectives:
+      - code: "3.1"
+        title: >-
+          Given a scenario, use the appropriate tools throughout the project
+          life cycle.
+
+      - code: "3.2"
+        title: "Compare and contrast various project management productivity tools."
+
+      - code: "3.3"
+        title: >-
+          Given a scenario, analyze quality and performance charts to inform
+          project decisions.
+
+  - code: "4.0"
+    title: "Basics of IT and Governance"
+    summary: >
+      The IT and governance context a project runs inside: ESG factors,
+      security, compliance and privacy, core IT concepts, and operational
+      change control.
+    objectives:
+      - code: "4.1"
+        title: >-
+          Summarize basic environmental, social, and governance factors related
+          to project management activities.
+        exam_points:
+          - "Project impact to the local and global environment"
+          - "Awareness of applicable regulations and standards"
+          - "Awareness of company vision, mission statements, and values"
+          - "Project impact to company brand value"
+
+      # The appendix prints "4.2 Exam Objective" as a placeholder rather than
+      # the objective's wording, so the title is left blank rather than guessed.
+      # Its mapped content is security: physical, operational, digital, and
+      # data security, plus corporate IT security policies.
+      - code: "4.2"
+        title: ""
+
+      - code: "4.3"
+        title: >-
+          Explain relevant compliance and privacy considerations impacting
+          project management.
+
+      - code: "4.4"
+        title: "Summarize basic IT concepts relevant to IT project management."
+
+      - code: "4.5"
+        title: "Explain operational change-control processes during an IT project."

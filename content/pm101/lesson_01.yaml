@@ -1,0 +1,233 @@
+number: 1
+title: "Preparing for the Project"
+verified: true
+source: "Verified against the official course material and the Mapping Course Content to CompTIA Project+ (PK0-005) appendix — 2026-07-12"
+topics:
+  - title: "Understand Project Management Basics"
+    slug: "project-management-basics"
+    order: 1
+    kind: "concept"
+    summary: >
+      Project management turns an idea into a finished result, moving through
+      five life cycle phases from Discovery to Closing.
+    objectives: []
+    related:
+      - slug: "business-case"
+        note: "The document that decides whether an idea survives Discovery"
+      - slug: "project-characteristics"
+        note: "What makes a piece of work a project at all"
+    visual:
+      kind: "flow"
+      title: "The five project life cycle phases"
+      caption: >
+        The same five phases described in this topic, in order. Every topic on
+        this site that belongs to a specific phase links back to one of these.
+      data:
+        nodes:
+          - label: "Discovery"
+            note: "Check feasibility. Most ideas stop here."
+          - label: "Initiation"
+            note: "Define goals and deliverables, kick off the team."
+          - label: "Planning"
+            note: "Detail activities, sequence, resources, tracking."
+          - label: "Execution"
+            note: "Build the thing. Keep work in sync."
+          - label: "Closing"
+            note: "Confirm, document, sign off, disband."
+    body: |
+      Project management is the discipline of turning an idea into a finished
+      result -- on time, on budget, done right.
+
+      What it does:
+      - Turns an idea into a defined goal, then delivers it.
+      - Brings the right people together and removes obstacles.
+      - Controls cost while keeping quality high.
+
+      Why it uses templates:
+      - A template is a reusable form for something every project needs (a
+        budget layout, a status report).
+      - Templates save time and keep quality consistent across projects.
+
+      The mindset it takes:
+      - Adaptable -- plans change; the team has to recover fast.
+      - Analytical -- catch problems before they happen.
+      - Relationship-driven -- PMs rarely own the systems or people they
+        depend on, so they lead by influence, not authority.
+
+      The 5 phases:
+      - Discovery -- before the project exists. Leaders check if the idea is
+        feasible. Most ideas stop here.
+      - Initiation -- the idea is approved. Define the goals and deliverables,
+        then kick off the team.
+      - Planning -- turn those goals into a detailed plan: activities,
+        sequence, resources, tracking.
+      - Execution -- the team builds the thing. You keep the work in sync and
+        solve problems as they come up.
+      - Closing -- confirm the work is done, finalize documentation and
+        budget, get sign-off, then the team disbands.
+
+      Remember: the exam asks "what phase are we in?" Discovery = filter
+      ideas. Initiation = define + build team. Planning = detail the work.
+      Execution = do the work. Closing = wrap up and disband.
+
+  - title: "Develop the Business Case"
+    slug: "business-case"
+    order: 2
+    kind: "document"
+    phase: "discovery"
+    summary: >
+      A business case justifies why a project should happen — the problem, the
+      options, and the payoff — and is what leaders weigh during Discovery.
+    objectives: ["2.1", "4.1"]
+    related:
+      - slug: "project-management-basics"
+        note: "Where the business case sits in the life cycle"
+    steps:
+      - title: "Executive summary"
+        body: "Problem, solution, result, in a few sentences. Write it last."
+      - title: "Problem statement"
+        body: "What's wrong, in under a paragraph."
+      - title: "Problem analysis"
+        body: "Why it matters, backed by data."
+      - title: "Options"
+        body: "3-5 alternatives compared. Always include \"do nothing.\""
+      - title: "Project definition"
+        body: "Scope, resources, milestones, timeline."
+      - title: "Financial overview"
+        body: "Cost, ROI, risks and assumptions."
+      - title: "Recommendation"
+        body: "The best option, justified."
+    visual:
+      kind: "table"
+      title: "ROI worked examples"
+      caption: >
+        The two worked examples from this topic, side by side. ROI =
+        (Net Profit / Cost) x 100.
+      data:
+        headers: ["Example", "Costs", "Sales", "Net profit", "ROI"]
+        rows:
+          - ["Profitable", "Ads $7,000 + labor $4,000 = $11,000", "$20,000", "$9,000", "81.8%"]
+          - ["Unprofitable", "Event fees $15,000 + supplies $4,000 = $19,000", "$18,000", "-$1,000", "-5.3%"]
+    body: |
+      A business case justifies why a project should happen. It states the
+      problem, the options, and the payoff.
+
+      7 sections, in order:
+      1. Executive summary -- problem, solution, result, in a few sentences.
+         Write it last.
+      2. Problem statement -- what's wrong, in under a paragraph.
+      3. Problem analysis -- why it matters, backed by data.
+      4. Options -- 3-5 alternatives compared. Always include "do nothing."
+      5. Project definition -- scope, resources, milestones, timeline.
+      6. Financial overview -- cost, ROI, risks and assumptions.
+      7. Recommendation -- the best option, justified.
+
+      Write it around value, not tech:
+      - Weak: "Buy VOIP phones instead of the current phone service."
+      - Strong: "Phone costs rose 75% in 5 years. Cut telephony costs by 50%
+        and give every employee reliable service."
+
+      Current state vs. future state:
+      - Current state -- what's happening now.
+      - Future state -- what changes after the project.
+      - Show both with matching metrics, so the gap is obvious.
+
+      ROI -- the financial check:
+      - ROI = (Net Profit / Cost) x 100
+      - Above 0% -- the project makes more than it costs.
+      - Below 0% -- the project loses money.
+      - A positive ROI does not guarantee approval by itself.
+
+      Worked examples:
+      - Profitable: Ads $7,000 + labor $4,000 = $11,000 cost. Sales: $20,000.
+        Net profit = $20,000 - $11,000 = $9,000. ROI = 9,000/11,000 x 100 =
+        81.8%.
+      - Unprofitable: Event fees $15,000 + supplies $4,000 = $19,000 cost.
+        Sales: $18,000. Net profit = $18,000 - $19,000 = -$1,000. ROI =
+        -1,000/19,000 x 100 = -5.3%.
+
+      Assumptions vs. risks:
+      - Assumption -- treated as true to simplify the math. "Revenue grows 5%
+        a year."
+      - Risk -- what if that assumption is wrong. "A supply shortage drops
+        growth to 0%."
+
+      ESG factors:
+      - Environmental -- impact on the planet.
+      - Social -- impact on people and community.
+      - Governance -- company policies, transparency, structure.
+
+      Remember: know the ROI formula. The exam hands you numbers and expects
+      you to calculate it -- including negative results.
+
+  - title: "Identify Project Characteristics"
+    slug: "project-characteristics"
+    order: 3
+    kind: "concept"
+    summary: >
+      What separates project work from operational work, and how a company's
+      structure decides how much authority the project manager actually has.
+    objectives: ["1.1", "1.10"]
+    related:
+      - slug: "project-management-basics"
+        note: "The life cycle a project moves through once it qualifies as one"
+    visual:
+      kind: "table"
+      title: "Organizational structure and PM authority"
+      caption: >
+        Organizational structure is what the exam is testing when it asks who
+        controls the budget.
+      data:
+        headers: ["Structure", "How it is organized", "PM authority"]
+        rows:
+          - ["Functional", "By department", "Least authority"]
+          - ["Matrix (weak)", "Blend of both — most common", "Functional manager keeps control"]
+          - ["Matrix (strong)", "Blend of both — most common", "PM has more control"]
+          - ["Projectized", "Around projects", "PM controls budget and people"]
+    body: |
+      Not all work is a project. Operational work repeats. Project work is
+      new and finite.
+
+      - Coffee shop -- Operational: serve customers. Project: develop a new
+        menu.
+      - Software company -- Operational: run security checks. Project:
+        implement identity management.
+
+      A true project must be:
+      - Unique -- a new objective, not repeat work.
+      - Purposeful -- it exists for a specific reason.
+      - Temporary -- it has a start and a finish.
+
+      Org structure sets how much power the PM has:
+      - Functional -- organized by department. PM has the least authority.
+      - Projectized -- organized around projects. PM controls budget and
+        people.
+      - Matrix -- blend of both, most common. Strong matrix: PM has more
+        control. Weak matrix: functional manager keeps control.
+
+      Project vs. program vs. portfolio:
+      - Project -- one objective, one team.
+      - Program -- several related projects working toward one big goal.
+      - Portfolio -- all of a company's projects and programs. They don't
+        have to be related.
+
+      Who runs it:
+      - Project Manager -- leads one project. Delivers on time, on budget, in
+        scope.
+      - Program Manager -- leads a program. Keeps it aligned to strategy.
+      - PMO -- the company's PM department. Supportive (helps if asked),
+        controlling (sets some standards), or directive (full authority, can
+        start/cancel projects).
+
+      Who influences it:
+      - Stakeholder -- anyone with a vested interest. Not automatically a
+        supporter.
+      - Sponsor -- accountable for the project. Validates the business case,
+        secures funding, removes barriers.
+      - Customer -- receives the benefit. Internal (inside the company) or
+        external (outside it).
+      - End-user -- actually uses the final output. Sometimes the same person
+        as the customer, sometimes not.
+
+      Remember: "Who controls the budget?" tests organizational structure.
+      "Related projects vs. any projects?" tests program vs. portfolio.
