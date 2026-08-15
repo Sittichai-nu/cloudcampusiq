@@ -37,15 +37,57 @@ CONTENT_DIR = Path(__file__).parent / "content"
 
 OBJECTIVE_CODE = re.compile(r"^\d+\.\d+$")
 
+# House style: no dash punctuation in content. Em dashes and " -- " are banned
+# because they read as an interruption; "Term: definition" is clearer and is
+# what the content uses throughout.
+#
+# Deliberately narrow: this matches em dash, en dash, and the double-hyphen
+# separator only. A plain hyphen is left alone because it is load-bearing
+# elsewhere -- inside words (end-user), in codes (PK0-005), in ranges (3-5),
+# and as the minus sign in the worked calculations.
+BANNED_PUNCTUATION = re.compile(r"—|–|(?<= )--(?= )")
+
 
 class ContentError(ValueError):
     """A content file is malformed. Always names the file and the item."""
 
 
+def _no_dashes(value, context):
+    """Reject dash punctuation in any authored string."""
+    if not isinstance(value, str):
+        return value
+    match = BANNED_PUNCTUATION.search(value)
+    if match:
+        start = max(0, match.start() - 30)
+        excerpt = value[start:match.end() + 30].replace("\n", " ").strip()
+        raise ContentError(
+            f"{context} uses dash punctuation ({match.group(0)!r}) in "
+            f"\"...{excerpt}...\". Use a colon or a full stop instead."
+        )
+    return value
+
+
+def _check_tree(value, context):
+    """Walk a nested structure (a diagram spec) checking every string in it."""
+    if isinstance(value, str):
+        _no_dashes(value, context)
+    elif isinstance(value, dict):
+        for key, item in value.items():
+            _check_tree(item, f"{context} :: {key}")
+    elif isinstance(value, list):
+        for index, item in enumerate(value, start=1):
+            _check_tree(item, f"{context}[{index}]")
+    return value
+
+
 def _require(data, field, context):
     if not isinstance(data, dict) or field not in data or data[field] in (None, ""):
         raise ContentError(f"{context} is missing required field '{field}'")
-    return data[field]
+    return _no_dashes(data[field], f"{context} field '{field}'")
+
+
+def _optional(data, field, context, default=""):
+    return _no_dashes(data.get(field, default), f"{context} field '{field}'")
 
 
 def _read_yaml(path):
@@ -158,7 +200,11 @@ class _Loader:
         data = _read_yaml(path)
         for entry in data.get("domains", []):
             code = _require(entry, "code", f"{path}")
-            domain = self.domain(code, entry.get("title", ""), entry.get("summary", ""))
+            domain = self.domain(
+                code,
+                _optional(entry, "title", f"{path} :: domain {code}"),
+                _optional(entry, "summary", f"{path} :: domain {code}"),
+            )
             for objective_entry in entry.get("objectives", []):
                 objective_code = _require(objective_entry, "code", f"{path} :: {code}")
                 if domain_code_for(objective_code) != code:
@@ -169,8 +215,11 @@ class _Loader:
                     )
                 self.objective(
                     objective_code,
-                    objective_entry.get("title", ""),
-                    objective_entry.get("exam_points", []),
+                    _optional(objective_entry, "title", f"{path} :: objective {objective_code}"),
+                    _check_tree(
+                        objective_entry.get("exam_points", []),
+                        f"{path} :: objective {objective_code} exam_points",
+                    ),
                 )
 
     def load_phases(self, path):
@@ -187,7 +236,7 @@ class _Loader:
                 slug=slug,
                 name=name,
                 order=entry.get("order", order),
-                summary=entry.get("summary", ""),
+                summary=_optional(entry, "summary", context),
             )
             self.db.session.add(phase)
             self.db.session.flush()
@@ -266,7 +315,7 @@ class _Loader:
             slug=slug,
             order=topic_data.get("order", index),
             title=title,
-            summary=topic_data.get("summary", ""),
+            summary=_optional(topic_data, "summary", context),
             kind=kind,
             body=_require(topic_data, "body", context),
             phase_id=phase.id if phase else None,
@@ -289,14 +338,18 @@ class _Loader:
                     topic_id=topic.id,
                     order=step_data.get("order", step_index),
                     title=_require(step_data, "title", step_context),
-                    body=step_data.get("body", ""),
+                    body=_optional(step_data, "body", step_context),
                 )
             )
             self.stats["steps"] += 1
 
-        visual_data = topic_data.get("visual")
-        if visual_data:
-            self.load_visual(topic, visual_data, context)
+        # `visuals:` is a list; `visual:` stays accepted for a single diagram.
+        visual_entries = topic_data.get("visuals")
+        if visual_entries is None:
+            single = topic_data.get("visual")
+            visual_entries = [single] if single else []
+        for visual_index, visual_data in enumerate(visual_entries, start=1):
+            self.load_visual(topic, visual_data, visual_index, context)
 
         # `related` accepts a bare slug or {slug, note} when the edge deserves
         # an explanation.
@@ -308,23 +361,26 @@ class _Loader:
                 related_slug, note = entry, ""
             self.pending_links.append((topic, str(related_slug), note, context))
 
-    def load_visual(self, topic, visual_data, context):
-        kind = _require(visual_data, "kind", f"{context} :: visual")
-        data = _require(visual_data, "data", f"{context} :: visual")
+    def load_visual(self, topic, visual_data, index, context):
+        visual_ctx = f"{context} :: visual #{index}"
+        kind = _require(visual_data, "kind", visual_ctx)
+        data = _require(visual_data, "data", visual_ctx)
+        _check_tree(data, f"{visual_ctx} data")
 
         # Render once now so a broken spec fails the build instead of showing
         # up as an empty panel at request time.
         try:
             render(kind, data, visual_data.get("title", ""))
         except VisualError as error:
-            raise ContentError(f"{context} :: visual — {error}") from error
+            raise ContentError(f"{visual_ctx}: {error}") from error
 
         self.db.session.add(
             Visual(
                 topic_id=topic.id,
+                order=visual_data.get("order", index),
                 kind=kind,
-                title=visual_data.get("title", ""),
-                caption=visual_data.get("caption", ""),
+                title=_optional(visual_data, "title", visual_ctx),
+                caption=_optional(visual_data, "caption", visual_ctx),
                 spec=json.dumps(data),
             )
         )

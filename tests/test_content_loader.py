@@ -214,3 +214,62 @@ def test_slugify():
 def test_slugify_rejects_unusable_input():
     with pytest.raises(ContentError):
         slugify("!!!")
+
+
+# --- house style: no dash punctuation ------------------------------------
+
+def test_em_dash_in_a_body_is_rejected(tmp_path, monkeypatch):
+    with pytest.raises(ContentError, match="dash punctuation"):
+        load(tmp_path, monkeypatch, """
+            - title: "A"
+              body: "Discovery — the first phase."
+        """)
+
+
+def test_double_hyphen_in_a_summary_is_rejected(tmp_path, monkeypatch):
+    with pytest.raises(ContentError, match="dash punctuation"):
+        load(tmp_path, monkeypatch, """
+            - title: "A"
+              summary: "Discovery -- the first phase."
+              body: "text"
+        """)
+
+
+def test_em_dash_inside_a_diagram_cell_is_rejected(tmp_path, monkeypatch):
+    # The spec is nested data, so the check has to walk into it.
+    with pytest.raises(ContentError, match="dash punctuation"):
+        load(tmp_path, monkeypatch, """
+            - title: "A"
+              body: "text"
+              visuals:
+                - kind: "table"
+                  data:
+                    headers: ["One"]
+                    rows: [["Blend of both — most common"]]
+        """)
+
+
+def test_hyphens_that_carry_meaning_are_left_alone(tmp_path, monkeypatch):
+    # Compound words, codes, ranges, and the minus sign in the worked
+    # calculations all use a plain hyphen and must survive.
+    stats = load(tmp_path, monkeypatch, """
+            - title: "A"
+              body: "End-user detail for PK0-005: 3-5 options. $20,000 - $11,000 = $9,000, or -5.3%."
+        """)
+    assert stats["topics"] == 1
+
+
+def test_a_topic_may_declare_several_diagrams(tmp_path, monkeypatch):
+    stats = load(tmp_path, monkeypatch, """
+            - title: "A"
+              body: "text"
+              visuals:
+                - kind: "table"
+                  data:
+                    headers: ["One"]
+                    rows: [["x"]]
+                - kind: "flow"
+                  data:
+                    nodes: ["First", "Second"]
+        """)
+    assert stats["visuals"] == 2

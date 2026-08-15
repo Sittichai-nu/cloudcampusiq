@@ -1,3 +1,5 @@
+import pathlib
+
 from formatting import format_body, plain_text
 
 
@@ -50,8 +52,17 @@ def test_remember_paragraph_becomes_a_callout():
     assert "Remember:" not in html
 
 
-def test_double_dash_becomes_an_em_dash():
-    assert "—" in render("Discovery -- the first phase.")
+def test_no_em_dash_is_manufactured():
+    # House style bans dash punctuation, and the loader rejects it in content.
+    # The formatter must not create one that content is not allowed to contain.
+    assert "—" not in render("Discovery -- the first phase.")
+
+
+def test_shipped_content_renders_without_dash_punctuation():
+    for path in pathlib.Path("content").rglob("*.yaml"):
+        text = path.read_text(encoding="utf-8")
+        assert "—" not in text, f"{path} contains an em dash"
+        assert " -- " not in text, f"{path} contains a double hyphen"
 
 
 def test_html_in_content_is_escaped():

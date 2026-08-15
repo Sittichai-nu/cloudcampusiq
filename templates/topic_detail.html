@@ -68,15 +68,15 @@
             </div>
             {% endif %}
 
-            {% if topic.visual %}
+            {% for visual in topic.visuals %}
             {{ visual_panel(
-                topic.visual.kind,
-                topic.visual.title,
-                topic.visual.caption,
-                render_visual(topic.visual.kind, topic.visual.data(), topic.visual.title),
+                visual.kind,
+                visual.title,
+                visual.caption,
+                render_visual(visual.kind, visual.data(), visual.title),
                 open_by_default=True
             ) }}
-            {% endif %}
+            {% endfor %}
 
             {% set related = topic.related_topics() %}
             {% if related %}

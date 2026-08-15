@@ -25,7 +25,7 @@ def test_get_topic_returns_the_full_graph(client):
     assert "2.1" in data["objectives"]
     assert "2.0" in data["domains"]
     assert data["steps"]
-    assert data["visual"]["kind"] == "table"
+    assert [v["kind"] for v in data["visuals"]] == ["table", "table", "table"]
     assert data["related"]
 
 
