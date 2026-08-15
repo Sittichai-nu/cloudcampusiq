@@ -40,9 +40,14 @@ def _escape(text):
 
 
 def _inline(text):
-    """Escape, then apply the one typographic convention the content uses."""
-    escaped = _escape(text.strip())
-    return escaped.replace(" -- ", " — ")
+    """Escape. No typographic substitution happens here.
+
+    This used to turn " -- " into an em dash. House style now bans dash
+    punctuation outright, and content_loader rejects it at build time, so
+    converting it here would have quietly manufactured the very character the
+    content is not allowed to contain.
+    """
+    return _escape(text.strip())
 
 
 def _join_wrapped(lines):

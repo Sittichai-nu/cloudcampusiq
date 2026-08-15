@@ -1,4 +1,4 @@
-# CloudCampusIQ — Cloud-Based Online Learning Platform
+# CloudCampusIQ: Cloud-Based Online Learning Platform
 
 [![Azure](https://img.shields.io/badge/Microsoft_Azure-0078D4?style=for-the-badge&logo=microsoft-azure&logoColor=white)](https://azure.microsoft.com)
 [![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
@@ -8,14 +8,14 @@
 ## Live Application
 🌐 [https://cloudcampusiq.onrender.com](https://cloudcampusiq.onrender.com)
 
-*Originally deployed on Azure App Service (architecture below). Currently mirrored on Render's free tier while the Azure student subscription is between credit cycles. Free-tier note: the app sleeps after ~15 min idle and may take 30–60s to wake on first load.*
+*Originally deployed on Azure App Service (architecture below). Currently mirrored on Render's free tier while the Azure student subscription is between credit cycles. Free-tier note: the app sleeps after ~15 min idle and may take 30 to 60s to wake on first load.*
 
 ---
 
 ## Project Overview
 
 CloudCampusIQ is a deployed cloud-based learning platform. It serves structured
-course content — courses, lessons, and topics — and makes that content navigable
+course content (courses, lessons, and topics) and makes that content navigable
 from whichever direction a learner already knows: by course, by exam domain and
 objective, by project life cycle phase, or by free-text search.
 
@@ -34,8 +34,8 @@ dead end.
 - which **exam domain and objective** it satisfies, with the objective's own
   sub-point checklist so a reader can self-test
 - which **project life cycle phase** it applies to
-- what **kind** of thing it is — concept, tool, document, process, or formula
-- which other topics **relate** to it — both hand-authored links and topics
+- what **kind** of thing it is: concept, tool, document, process, or formula
+- which other topics **relate** to it: both hand-authored links and topics
   automatically cross-linked because they share an objective
 - an ordered list of **steps**, where the topic describes a procedure
 - an optional **diagram**, rendered as inline SVG from the topic's own data
@@ -132,9 +132,10 @@ content/<course>/
 └── lesson_NN.yaml   one file per lesson
 ```
 
-A new folder with a `course.yaml` appears in the catalog automatically — nothing
+A new folder with a `course.yaml` appears in the catalog automatically. Nothing
 is hardcoded in a template. Only `title` and `body` are required on a topic;
-every other field adds another way to find it later.
+every other field adds another way to find it later. A topic can carry any
+number of diagrams, so a comparison can be a table instead of nested bullets.
 
 The loader validates strictly and fails the build on an unknown topic kind, an
 undefined phase, a `related` slug pointing at nothing, a duplicate slug, or a
@@ -152,7 +153,7 @@ in the running app for the diagram catalog.
 .\dev.ps1 test
 ```
 
-110 tests covering the content loader's validation rules, body formatting, each
+117 tests covering the content loader's validation rules, body formatting, each
 diagram renderer, search ranking, every page route, and the JSON API contract.
 Tests run against the real `content/` tree, so a schema change that breaks
 published content fails the suite.
@@ -164,14 +165,14 @@ published content fails the suite.
 As part of the cloud-engineering deliverable for this project, the following were configured directly on Azure (independent of the Flask app's own code):
 
 - Azure Active Directory app registration with Role-Based Access Control (RBAC)
-- Azure Blob Storage container with private access — no anonymous access permitted
+- Azure Blob Storage container with private access. No anonymous access permitted
 - HTTPS Only enforced on Azure App Service, TLS 1.2 minimum
 - Azure Monitor alert rule (Http5xx > 5 in 5 minutes)
 - Azure Cost Management spending dashboard
 
 These demonstrate Azure identity, storage, and monitoring configuration; wiring the Flask app itself to consume them (e.g., enforcing AD login) is a planned next step, not yet implemented in code.
 
-Note: the login page is a front-end demo — it is not yet wired to a backend authentication service.
+Note: the login page is a front-end demo. It is not yet wired to a backend authentication service.
 
 ---
 
@@ -205,7 +206,7 @@ cloudcampusiq/
 ├── formatting.py           # Topic body → HTML
 ├── search.py               # Site-wide search
 ├── dev.ps1 / dev.sh        # Developer entry point
-├── content/                # Course content — the source of truth
+├── content/                # Course content, the source of truth
 ├── templates/
 ├── static/
 ├── tests/
@@ -216,16 +217,16 @@ cloudcampusiq/
 
 ## Monitoring and Cost Management
 
-- **Azure Monitor** — HTTP server error alerts (Http5xx > 5 in 5 minutes)
-- **Azure Cost Management** — Real-time spending dashboard
-- **Current cost** — Less than $0.01/month (Azure for Students)
+- **Azure Monitor**: HTTP server error alerts (Http5xx > 5 in 5 minutes)
+- **Azure Cost Management**: Real-time spending dashboard
+- **Current cost**: Less than $0.01/month (Azure for Students)
 
 ---
 
 ## Author
 
 **Nu Chai**
-WGU — D782 Network Architecture and Cloud Computing
+WGU, D782 Network Architecture and Cloud Computing
 April 2026
 
 ---

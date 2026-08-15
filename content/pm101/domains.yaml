@@ -1,6 +1,6 @@
 # Exam domains and objectives.
 #
-# Source: "Appendix A — Mapping Course Content to CompTIA Project+ (Exam
+# Source: "Appendix A: Mapping Course Content to CompTIA Project+ (Exam
 # PK0-005) Objectives", from the official course Resources. Domain and
 # objective titles are quoted from that appendix.
 #
@@ -76,8 +76,8 @@ domains:
   - code: "2.0"
     title: "Project Life Cycle Phases"
     summary: >
-      What actually gets done in each phase — discovery, initiation, planning,
-      execution, and closing — and which artifacts each phase produces.
+      What actually gets done in each phase (discovery, initiation, planning,
+      execution, and closing), and which artifacts each phase produces.
     objectives:
       - code: "2.1"
         title: >-

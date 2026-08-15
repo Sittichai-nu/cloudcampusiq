@@ -367,7 +367,7 @@ EXAMPLES = [
             "diamond, and depends_on draws dependency arrows between tasks."
         ),
         "title": "Sample schedule",
-        "caption": "Sample data — replace with the schedule from your content.",
+        "caption": "Sample data. Replace with the schedule from your content.",
         "data": {
             "unit": "week",
             "tasks": [
@@ -383,7 +383,7 @@ EXAMPLES = [
         "kind": "flow",
         "blurb": "A left-to-right chain of numbered boxes. Each node takes a label and an optional note.",
         "title": "Sample process",
-        "caption": "Sample data — replace with the sequence from your content.",
+        "caption": "Sample data. Replace with the sequence from your content.",
         "data": {
             "nodes": [
                 {"label": "Request", "note": "Someone asks for the work."},
@@ -397,7 +397,7 @@ EXAMPLES = [
         "kind": "table",
         "blurb": "A comparison table. Every row must have exactly as many cells as there are headers.",
         "title": "Sample comparison",
-        "caption": "Sample data — replace with the comparison from your content.",
+        "caption": "Sample data. Replace with the comparison from your content.",
         "data": {
             "headers": ["Option", "Cost", "Effort"],
             "rows": [

@@ -208,11 +208,11 @@ class Topic(db.Model):
         cascade="all, delete-orphan",
         order_by="TopicStep.order",
     )
-    visual = db.relationship(
+    visuals = db.relationship(
         "Visual",
         backref="topic",
         cascade="all, delete-orphan",
-        uselist=False,
+        order_by="Visual.order",
     )
     links = db.relationship(
         "TopicLink",
@@ -271,7 +271,7 @@ class Topic(db.Model):
         if include_body:
             data["body"] = self.body
             data["steps"] = [step.to_dict() for step in self.steps]
-            data["visual"] = self.visual.to_dict() if self.visual else None
+            data["visuals"] = [visual.to_dict() for visual in self.visuals]
             data["related"] = [
                 {"slug": topic.slug, "title": topic.title, "reason": reason}
                 for topic, reason in self.related_topics()
@@ -307,10 +307,16 @@ class TopicLink(db.Model):
 
 class Visual(db.Model):
     """A diagram attached to a topic. `spec` is the renderer's input data as
-    JSON; the renderer itself is chosen by `kind` (see visuals.py)."""
+    JSON; the renderer itself is chosen by `kind` (see visuals.py).
+
+    A topic may carry several: a dense topic usually has more than one thing
+    worth comparing, and splitting those into separate tables reads far better
+    than one long prose list.
+    """
 
     id = db.Column(db.Integer, primary_key=True)
-    topic_id = db.Column(db.Integer, db.ForeignKey("topic.id"), unique=True, nullable=False)
+    topic_id = db.Column(db.Integer, db.ForeignKey("topic.id"), nullable=False)
+    order = db.Column(db.Integer, nullable=False, default=1)
     kind = db.Column(db.String(20), nullable=False)
     title = db.Column(db.String(200), nullable=False, default="")
     caption = db.Column(db.Text, nullable=False, default="")

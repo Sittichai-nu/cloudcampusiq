@@ -40,6 +40,11 @@ def test_topic_page_shows_the_exam_objective_checklist(client):
     assert "Return on investment analysis" in body       # one of its exam points
 
 
+def test_topic_page_renders_every_diagram_it_declares(client):
+    body = client.get("/topics/project-characteristics").get_data(as_text=True)
+    assert body.count('class="visual-panel"') == 4
+
+
 def test_domain_page_names_the_domain_and_its_objectives(client):
     body = client.get("/domains/1.0").get_data(as_text=True)
     assert "Project Management Concepts" in body

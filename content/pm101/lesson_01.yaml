@@ -1,7 +1,7 @@
 number: 1
 title: "Preparing for the Project"
 verified: true
-source: "Verified against the official course material and the Mapping Course Content to CompTIA Project+ (PK0-005) appendix — 2026-07-12"
+source: "Verified against the official course material and the Mapping Course Content to CompTIA Project+ (PK0-005) appendix on 2026-07-12"
 topics:
   - title: "Understand Project Management Basics"
     slug: "project-management-basics"
@@ -16,27 +16,42 @@ topics:
         note: "The document that decides whether an idea survives Discovery"
       - slug: "project-characteristics"
         note: "What makes a piece of work a project at all"
-    visual:
-      kind: "flow"
-      title: "The five project life cycle phases"
-      caption: >
-        The same five phases described in this topic, in order. Every topic on
-        this site that belongs to a specific phase links back to one of these.
-      data:
-        nodes:
-          - label: "Discovery"
-            note: "Check feasibility. Most ideas stop here."
-          - label: "Initiation"
-            note: "Define goals and deliverables, kick off the team."
-          - label: "Planning"
-            note: "Detail activities, sequence, resources, tracking."
-          - label: "Execution"
-            note: "Build the thing. Keep work in sync."
-          - label: "Closing"
-            note: "Confirm, document, sign off, disband."
+    visuals:
+      - kind: "flow"
+        title: "The five project life cycle phases"
+        caption: >
+          The same five phases described in this topic, in order. Every topic
+          on this site that belongs to a specific phase links back to one of
+          these.
+        data:
+          nodes:
+            - label: "Discovery"
+              note: "Check feasibility. Most ideas stop here."
+            - label: "Initiation"
+              note: "Define goals and deliverables, kick off the team."
+            - label: "Planning"
+              note: "Detail activities, sequence, resources, tracking."
+            - label: "Execution"
+              note: "Build the thing. Keep work in sync."
+            - label: "Closing"
+              note: "Confirm, document, sign off, disband."
+
+      - kind: "table"
+        title: "What each phase is for"
+        caption: >
+          The exam asks "what phase are we in?" more than it asks you to define
+          a phase. Read the middle column as the giveaway.
+        data:
+          headers: ["Phase", "What happens", "Exam cue"]
+          rows:
+            - ["Discovery", "Leaders check whether the idea is feasible. Most ideas stop here.", "Filter ideas"]
+            - ["Initiation", "The idea is approved. Goals and deliverables are defined, the team is kicked off.", "Define and build the team"]
+            - ["Planning", "Goals become a detailed plan covering activities, sequence, resources, tracking.", "Detail the work"]
+            - ["Execution", "The team builds the thing. Work is kept in sync and problems are solved.", "Do the work"]
+            - ["Closing", "Work is confirmed, documentation and budget finalized, sign-off obtained, team disbands.", "Wrap up and disband"]
     body: |
       Project management is the discipline of turning an idea into a finished
-      result -- on time, on budget, done right.
+      result: on time, on budget, done right.
 
       What it does:
       - Turns an idea into a defined goal, then delivers it.
@@ -49,26 +64,26 @@ topics:
       - Templates save time and keep quality consistent across projects.
 
       The mindset it takes:
-      - Adaptable -- plans change; the team has to recover fast.
-      - Analytical -- catch problems before they happen.
-      - Relationship-driven -- PMs rarely own the systems or people they
-        depend on, so they lead by influence, not authority.
+      - Adaptable: plans change, and the team has to recover fast.
+      - Analytical: catch problems before they happen.
+      - Relationship-driven: PMs rarely own the systems or people they depend
+        on, so they lead by influence, not authority.
 
       The 5 phases:
-      - Discovery -- before the project exists. Leaders check if the idea is
+      - Discovery: before the project exists. Leaders check if the idea is
         feasible. Most ideas stop here.
-      - Initiation -- the idea is approved. Define the goals and deliverables,
+      - Initiation: the idea is approved. Define the goals and deliverables,
         then kick off the team.
-      - Planning -- turn those goals into a detailed plan: activities,
-        sequence, resources, tracking.
-      - Execution -- the team builds the thing. You keep the work in sync and
+      - Planning: turn those goals into a detailed plan covering activities,
+        sequence, resources, and tracking.
+      - Execution: the team builds the thing. You keep the work in sync and
         solve problems as they come up.
-      - Closing -- confirm the work is done, finalize documentation and
-        budget, get sign-off, then the team disbands.
+      - Closing: confirm the work is done, finalize documentation and budget,
+        get sign-off, then the team disbands.
 
-      Remember: the exam asks "what phase are we in?" Discovery = filter
-      ideas. Initiation = define + build team. Planning = detail the work.
-      Execution = do the work. Closing = wrap up and disband.
+      Remember: the exam asks "what phase are we in?" Discovery filters ideas.
+      Initiation defines the work and builds the team. Planning details the
+      work. Execution does the work. Closing wraps up and disbands.
 
   - title: "Develop the Business Case"
     slug: "business-case"
@@ -76,8 +91,9 @@ topics:
     kind: "document"
     phase: "discovery"
     summary: >
-      A business case justifies why a project should happen — the problem, the
-      options, and the payoff — and is what leaders weigh during Discovery.
+      A business case justifies why a project should happen. It states the
+      problem, the options, and the payoff, and it is what leaders weigh
+      during Discovery.
     objectives: ["2.1", "4.1"]
     related:
       - slug: "project-management-basics"
@@ -86,7 +102,7 @@ topics:
       - title: "Executive summary"
         body: "Problem, solution, result, in a few sentences. Write it last."
       - title: "Problem statement"
-        body: "What's wrong, in under a paragraph."
+        body: "What is wrong, in under a paragraph."
       - title: "Problem analysis"
         body: "Why it matters, backed by data."
       - title: "Options"
@@ -97,30 +113,52 @@ topics:
         body: "Cost, ROI, risks and assumptions."
       - title: "Recommendation"
         body: "The best option, justified."
-    visual:
-      kind: "table"
-      title: "ROI worked examples"
-      caption: >
-        The two worked examples from this topic, side by side. ROI =
-        (Net Profit / Cost) x 100.
-      data:
-        headers: ["Example", "Costs", "Sales", "Net profit", "ROI"]
-        rows:
-          - ["Profitable", "Ads $7,000 + labor $4,000 = $11,000", "$20,000", "$9,000", "81.8%"]
-          - ["Unprofitable", "Event fees $15,000 + supplies $4,000 = $19,000", "$18,000", "-$1,000", "-5.3%"]
+    visuals:
+      - kind: "table"
+        title: "ROI worked examples"
+        caption: >
+          The two worked examples from this topic, side by side.
+          ROI = (Net Profit / Cost) x 100.
+        data:
+          headers: ["Example", "Costs", "Sales", "Net profit", "ROI"]
+          rows:
+            - ["Profitable", "Ads $7,000 + labor $4,000 = $11,000", "$20,000", "$9,000", "81.8%"]
+            - ["Unprofitable", "Event fees $15,000 + supplies $4,000 = $19,000", "$18,000", "-$1,000", "-5.3%"]
+
+      - kind: "table"
+        title: "Assumption vs. risk"
+        caption: >
+          Both appear in the financial overview. The exam separates them by
+          whether the statement is being relied on or guarded against.
+        data:
+          headers: ["Term", "What it is", "Example"]
+          rows:
+            - ["Assumption", "Treated as true to simplify the math", "\"Revenue grows 5% a year.\""]
+            - ["Risk", "What happens if that assumption is wrong", "\"A supply shortage drops growth to 0%.\""]
+
+      - kind: "table"
+        title: "Writing around value, not tech"
+        caption: >
+          A business case argues for an outcome, not for a product. The strong
+          version names the cost problem and the measurable result.
+        data:
+          headers: ["Version", "Wording"]
+          rows:
+            - ["Weak", "\"Buy VOIP phones instead of the current phone service.\""]
+            - ["Strong", "\"Phone costs rose 75% in 5 years. Cut telephony costs by 50% and give every employee reliable service.\""]
     body: |
       A business case justifies why a project should happen. It states the
       problem, the options, and the payoff.
 
       7 sections, in order:
-      1. Executive summary -- problem, solution, result, in a few sentences.
+      1. Executive summary: problem, solution, result, in a few sentences.
          Write it last.
-      2. Problem statement -- what's wrong, in under a paragraph.
-      3. Problem analysis -- why it matters, backed by data.
-      4. Options -- 3-5 alternatives compared. Always include "do nothing."
-      5. Project definition -- scope, resources, milestones, timeline.
-      6. Financial overview -- cost, ROI, risks and assumptions.
-      7. Recommendation -- the best option, justified.
+      2. Problem statement: what is wrong, in under a paragraph.
+      3. Problem analysis: why it matters, backed by data.
+      4. Options: 3-5 alternatives compared. Always include "do nothing."
+      5. Project definition: scope, resources, milestones, timeline.
+      6. Financial overview: cost, ROI, risks and assumptions.
+      7. Recommendation: the best option, justified.
 
       Write it around value, not tech:
       - Weak: "Buy VOIP phones instead of the current phone service."
@@ -128,14 +166,14 @@ topics:
         and give every employee reliable service."
 
       Current state vs. future state:
-      - Current state -- what's happening now.
-      - Future state -- what changes after the project.
+      - Current state: what is happening now.
+      - Future state: what changes after the project.
       - Show both with matching metrics, so the gap is obvious.
 
-      ROI -- the financial check:
+      ROI, the financial check:
       - ROI = (Net Profit / Cost) x 100
-      - Above 0% -- the project makes more than it costs.
-      - Below 0% -- the project loses money.
+      - Above 0%: the project makes more than it costs.
+      - Below 0%: the project loses money.
       - A positive ROI does not guarantee approval by itself.
 
       Worked examples:
@@ -147,18 +185,18 @@ topics:
         -1,000/19,000 x 100 = -5.3%.
 
       Assumptions vs. risks:
-      - Assumption -- treated as true to simplify the math. "Revenue grows 5%
-        a year."
-      - Risk -- what if that assumption is wrong. "A supply shortage drops
+      - Assumption: treated as true to simplify the math. "Revenue grows 5% a
+        year."
+      - Risk: what if that assumption is wrong. "A supply shortage drops
         growth to 0%."
 
       ESG factors:
-      - Environmental -- impact on the planet.
-      - Social -- impact on people and community.
-      - Governance -- company policies, transparency, structure.
+      - Environmental: impact on the planet.
+      - Social: impact on people and community.
+      - Governance: company policies, transparency, structure.
 
       Remember: know the ROI formula. The exam hands you numbers and expects
-      you to calculate it -- including negative results.
+      you to calculate it, including negative results.
 
   - title: "Identify Project Characteristics"
     slug: "project-characteristics"
@@ -171,63 +209,102 @@ topics:
     related:
       - slug: "project-management-basics"
         note: "The life cycle a project moves through once it qualifies as one"
-    visual:
-      kind: "table"
-      title: "Organizational structure and PM authority"
-      caption: >
-        Organizational structure is what the exam is testing when it asks who
-        controls the budget.
-      data:
-        headers: ["Structure", "How it is organized", "PM authority"]
-        rows:
-          - ["Functional", "By department", "Least authority"]
-          - ["Matrix (weak)", "Blend of both — most common", "Functional manager keeps control"]
-          - ["Matrix (strong)", "Blend of both — most common", "PM has more control"]
-          - ["Projectized", "Around projects", "PM controls budget and people"]
-    body: |
-      Not all work is a project. Operational work repeats. Project work is
-      new and finite.
+    visuals:
+      - kind: "table"
+        title: "Operational work vs. project work"
+        caption: >
+          Operational work repeats. Project work is new and finite. The exam
+          uses this split to test whether something is a project at all.
+        data:
+          headers: ["Example organization", "Operational work", "Project work"]
+          rows:
+            - ["Coffee shop", "Serve customers", "Develop a new menu"]
+            - ["Software company", "Run security checks", "Implement identity management"]
 
-      - Coffee shop -- Operational: serve customers. Project: develop a new
+      - kind: "table"
+        title: "Organizational structure and PM authority"
+        caption: >
+          Organizational structure is what the exam is testing when it asks
+          who controls the budget.
+        data:
+          headers: ["Structure", "How it is organized", "PM authority"]
+          rows:
+            - ["Functional", "By department", "Least authority"]
+            - ["Matrix (weak)", "Blend of both, the most common", "Functional manager keeps control"]
+            - ["Matrix (strong)", "Blend of both, the most common", "PM has more control"]
+            - ["Projectized", "Around projects", "PM controls budget and people"]
+
+      - kind: "table"
+        title: "Project vs. program vs. portfolio"
+        caption: >
+          The giveaway is whether the projects have to be related. A program
+          requires it. A portfolio does not.
+        data:
+          headers: ["Term", "What it covers", "Must they be related?"]
+          rows:
+            - ["Project", "One objective, one team", "Not applicable"]
+            - ["Program", "Several projects working toward one big goal", "Yes"]
+            - ["Portfolio", "All of a company's projects and programs", "No"]
+
+      - kind: "table"
+        title: "Who runs a project and who influences it"
+        caption: >
+          Two groups worth keeping apart: the people accountable for delivery,
+          and the people with a stake in the outcome.
+        data:
+          headers: ["Role", "Group", "What they do"]
+          rows:
+            - ["Project Manager", "Runs it", "Leads one project. Delivers on time, on budget, in scope."]
+            - ["Program Manager", "Runs it", "Leads a program. Keeps it aligned to strategy."]
+            - ["PMO", "Runs it", "The company's PM department. Supportive, controlling, or directive."]
+            - ["Stakeholder", "Influences it", "Anyone with a vested interest. Not automatically a supporter."]
+            - ["Sponsor", "Influences it", "Accountable for the project. Validates the business case, secures funding, removes barriers."]
+            - ["Customer", "Influences it", "Receives the benefit. Internal or external."]
+            - ["End-user", "Influences it", "Actually uses the final output. Sometimes the customer, sometimes not."]
+    body: |
+      Not all work is a project. Operational work repeats. Project work is new
+      and finite.
+
+      - Coffee shop. Operational: serve customers. Project: develop a new
         menu.
-      - Software company -- Operational: run security checks. Project:
-        implement identity management.
+      - Software company. Operational: run security checks. Project: implement
+        identity management.
 
       A true project must be:
-      - Unique -- a new objective, not repeat work.
-      - Purposeful -- it exists for a specific reason.
-      - Temporary -- it has a start and a finish.
+      - Unique: a new objective, not repeat work.
+      - Purposeful: it exists for a specific reason.
+      - Temporary: it has a start and a finish.
 
       Org structure sets how much power the PM has:
-      - Functional -- organized by department. PM has the least authority.
-      - Projectized -- organized around projects. PM controls budget and
-        people.
-      - Matrix -- blend of both, most common. Strong matrix: PM has more
-        control. Weak matrix: functional manager keeps control.
+      - Functional: organized by department. PM has the least authority.
+      - Projectized: organized around projects. PM controls budget and people.
+      - Matrix: a blend of both, and the most common. Strong matrix means the
+        PM has more control. Weak matrix means the functional manager keeps
+        control.
 
       Project vs. program vs. portfolio:
-      - Project -- one objective, one team.
-      - Program -- several related projects working toward one big goal.
-      - Portfolio -- all of a company's projects and programs. They don't
-        have to be related.
+      - Project: one objective, one team.
+      - Program: several related projects working toward one big goal.
+      - Portfolio: all of a company's projects and programs. They do not have
+        to be related.
 
       Who runs it:
-      - Project Manager -- leads one project. Delivers on time, on budget, in
+      - Project Manager: leads one project. Delivers on time, on budget, in
         scope.
-      - Program Manager -- leads a program. Keeps it aligned to strategy.
-      - PMO -- the company's PM department. Supportive (helps if asked),
+      - Program Manager: leads a program. Keeps it aligned to strategy.
+      - PMO: the company's PM department. Supportive (helps if asked),
         controlling (sets some standards), or directive (full authority, can
-        start/cancel projects).
+        start or cancel projects).
 
       Who influences it:
-      - Stakeholder -- anyone with a vested interest. Not automatically a
+      - Stakeholder: anyone with a vested interest. Not automatically a
         supporter.
-      - Sponsor -- accountable for the project. Validates the business case,
+      - Sponsor: accountable for the project. Validates the business case,
         secures funding, removes barriers.
-      - Customer -- receives the benefit. Internal (inside the company) or
+      - Customer: receives the benefit. Internal (inside the company) or
         external (outside it).
-      - End-user -- actually uses the final output. Sometimes the same person
-        as the customer, sometimes not.
+      - End-user: actually uses the final output. Sometimes the same person as
+        the customer, sometimes not.
 
       Remember: "Who controls the budget?" tests organizational structure.
       "Related projects vs. any projects?" tests program vs. portfolio.
