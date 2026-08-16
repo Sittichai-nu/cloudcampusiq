@@ -1501,3 +1501,27 @@ mark {
 .objective-topics a:hover {
     text-decoration: underline;
 }
+
+.exam-note {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin: 0 0 1.25rem;
+    padding: 1rem 1.15rem;
+    background: var(--primary-soft);
+    border-left: 4px solid var(--primary);
+    border-radius: var(--radius-sm);
+}
+
+.exam-note-label {
+    font-size: 0.72rem;
+    font-weight: bold;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--primary-dark);
+}
+
+.exam-note p {
+    margin: 0;
+    line-height: 1.6;
+}

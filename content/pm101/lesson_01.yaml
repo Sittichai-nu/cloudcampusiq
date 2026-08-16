@@ -11,6 +11,13 @@ topics:
       Project management turns an idea into a finished result, moving through
       five life cycle phases from Discovery to Closing.
     objectives: []
+    exam_note: >
+      The objectives appendix maps no exam objective to this topic. It is
+      groundwork for the phase vocabulary the rest of the course uses. The
+      phases themselves are tested under Domain 2.0, where each objective
+      covers one phase: 2.1 discovery, 2.2 initiation, 2.3 planning, 2.4
+      execution, and 2.5 closure. Learn the phases here, then expect to be
+      tested on the activities inside each one.
     related:
       - slug: "business-case"
         note: "The document that decides whether an idea survives Discovery"
@@ -39,8 +46,9 @@ topics:
       - kind: "table"
         title: "What each phase is for"
         caption: >
-          The exam asks "what phase are we in?" more than it asks you to define
-          a phase. Read the middle column as the giveaway.
+          Each phase in order, with a short cue for telling them apart. The
+          phases themselves are tested under Domain 2.0, one objective per
+          phase.
         data:
           headers: ["Phase", "What happens", "Exam cue"]
           rows:
@@ -81,9 +89,9 @@ topics:
       - Closing: confirm the work is done, finalize documentation and budget,
         get sign-off, then the team disbands.
 
-      Remember: the exam asks "what phase are we in?" Discovery filters ideas.
-      Initiation defines the work and builds the team. Planning details the
-      work. Execution does the work. Closing wraps up and disbands.
+      Remember: one line per phase. Discovery filters ideas. Initiation
+      defines the work and builds the team. Planning details the work.
+      Execution does the work. Closing wraps up and disbands.
 
   - title: "Develop the Business Case"
     slug: "business-case"
@@ -95,6 +103,14 @@ topics:
       problem, the options, and the payoff, and it is what leaders weigh
       during Discovery.
     objectives: ["2.1", "4.1"]
+    exam_note: >
+      The appendix maps this topic to two objectives. Under 2.1 it lists three
+      items: business case or business objective, return on investment
+      analysis, and current state vs. future state. Under 4.1 it lists four:
+      project impact to the local and global environment, awareness of
+      applicable regulations and standards, awareness of company vision,
+      mission statements and values, and project impact to company brand
+      value. Those seven items are the tested surface of this topic.
     related:
       - slug: "project-management-basics"
         note: "Where the business case sits in the life cycle"
@@ -128,8 +144,9 @@ topics:
       - kind: "table"
         title: "Assumption vs. risk"
         caption: >
-          Both appear in the financial overview. The exam separates them by
-          whether the statement is being relied on or guarded against.
+          Both appear in the financial overview section of the business case.
+          The split is whether the statement is being relied on or guarded
+          against.
         data:
           headers: ["Term", "What it is", "Example"]
           rows:
@@ -195,8 +212,9 @@ topics:
       - Social: impact on people and community.
       - Governance: company policies, transparency, structure.
 
-      Remember: know the ROI formula. The exam hands you numbers and expects
-      you to calculate it, including negative results.
+      Remember: know the ROI formula well enough to run it on numbers you are
+      given, including when the result is negative. Objective 2.1 lists return
+      on investment analysis by name.
 
   - title: "Identify Project Characteristics"
     slug: "project-characteristics"
@@ -206,6 +224,16 @@ topics:
       What separates project work from operational work, and how a company's
       structure decides how much authority the project manager actually has.
     objectives: ["1.1", "1.10"]
+    exam_note: >
+      The appendix maps this topic to two objectives. Under 1.1 it lists the
+      characteristics of a project (unique, reason or purpose, start and
+      finish), plus project as part of a program and project as part of a
+      portfolio. Under 1.10 it lists organizational structures (matrix,
+      projectized, functional) and the roles and responsibilities, naming
+      sponsor, stakeholders, senior management, project manager, program
+      manager, product manager, project management office, and end users.
+      Note that 1.10 is shared with later lessons, so this topic covers only
+      the structures and roles half of it.
     related:
       - slug: "project-management-basics"
         note: "The life cycle a project moves through once it qualifies as one"
@@ -213,8 +241,9 @@ topics:
       - kind: "table"
         title: "Operational work vs. project work"
         caption: >
-          Operational work repeats. Project work is new and finite. The exam
-          uses this split to test whether something is a project at all.
+          Operational work repeats. Project work is new and finite. Objective
+          1.1 lists the characteristics of a project: unique, reason or
+          purpose, start and finish.
         data:
           headers: ["Example organization", "Operational work", "Project work"]
           rows:
@@ -224,8 +253,9 @@ topics:
       - kind: "table"
         title: "Organizational structure and PM authority"
         caption: >
-          Organizational structure is what the exam is testing when it asks
-          who controls the budget.
+          Objective 1.10 names all three structures: matrix, projectized, and
+          functional. Authority over budget and people is what separates
+          them.
         data:
           headers: ["Structure", "How it is organized", "PM authority"]
           rows:
@@ -237,8 +267,9 @@ topics:
       - kind: "table"
         title: "Project vs. program vs. portfolio"
         caption: >
-          The giveaway is whether the projects have to be related. A program
-          requires it. A portfolio does not.
+          Objective 1.1 lists project as part of a program and project as part
+          of a portfolio as separate items. The split is whether the projects
+          have to be related.
         data:
           headers: ["Term", "What it covers", "Must they be related?"]
           rows:
@@ -249,8 +280,9 @@ topics:
       - kind: "table"
         title: "Who runs a project and who influences it"
         caption: >
-          Two groups worth keeping apart: the people accountable for delivery,
-          and the people with a stake in the outcome.
+          Objective 1.10 names sponsor, stakeholders, senior management,
+          project manager, program manager, product manager, project
+          management office, and end users under roles and responsibilities.
         data:
           headers: ["Role", "Group", "What they do"]
           rows:
@@ -306,5 +338,6 @@ topics:
       - End-user: actually uses the final output. Sometimes the same person as
         the customer, sometimes not.
 
-      Remember: "Who controls the budget?" tests organizational structure.
-      "Related projects vs. any projects?" tests program vs. portfolio.
+      Remember: authority over budget and people separates the organizational
+      structures. Whether the projects have to be related separates a program
+      from a portfolio.

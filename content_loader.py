@@ -316,6 +316,7 @@ class _Loader:
             order=topic_data.get("order", index),
             title=title,
             summary=_optional(topic_data, "summary", context),
+            exam_note=_optional(topic_data, "exam_note", context),
             kind=kind,
             body=_require(topic_data, "body", context),
             phase_id=phase.id if phase else None,

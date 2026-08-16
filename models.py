@@ -192,6 +192,9 @@ class Topic(db.Model):
     summary = db.Column(db.Text, nullable=False, default="")
     kind = db.Column(db.String(20), nullable=False, default="concept")
     body = db.Column(db.Text, nullable=False)
+    # What the objectives appendix actually says about this topic's exam scope.
+    # Every sentence here must be traceable to that appendix.
+    exam_note = db.Column(db.Text, nullable=False, default="")
     phase_id = db.Column(db.Integer, db.ForeignKey("phase.id"), nullable=True)
     verified = db.Column(db.Boolean, nullable=False)
     source = db.Column(db.String(300), nullable=False)
@@ -262,6 +265,7 @@ class Topic(db.Model):
             "title": self.title,
             "summary": self.summary,
             "kind": self.kind,
+            "exam_note": self.exam_note,
             "objectives": self.tag_list(),
             "domains": [domain.code for domain in self.domains()],
             "phase": self.phase.slug if self.phase else None,
