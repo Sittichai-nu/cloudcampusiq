@@ -233,6 +233,46 @@ class Topic(db.Model):
             seen[objective.domain.code] = objective.domain
         return sorted(seen.values(), key=lambda d: d.order)
 
+    def reading_order(self):
+        """Every topic in this course, in the order a reader works through it.
+
+        Crosses lesson boundaries on purpose so "next" keeps going at the end
+        of a lesson instead of dead-ending.
+        """
+        ordered = []
+        for lesson in self.lesson.course.lessons:
+            ordered.extend(lesson.topics)
+        return ordered
+
+    def neighbours(self):
+        """(previous, next) in reading order. Either may be None at the ends."""
+        ordered = self.reading_order()
+        position = next(
+            (i for i, topic in enumerate(ordered) if topic.id == self.id), None
+        )
+        if position is None:
+            return None, None
+        previous = ordered[position - 1] if position > 0 else None
+        following = ordered[position + 1] if position + 1 < len(ordered) else None
+        return previous, following
+
+    def sections(self):
+        """The on-page sections this topic actually has, for jump links.
+
+        Built from what is present rather than a fixed list, so the outline
+        never offers a link to an empty section.
+        """
+        found = [("overview", "Overview")]
+        if self.objectives or self.exam_note:
+            found.append(("exam", "What the exam asks"))
+        if self.steps:
+            found.append(("steps", "Steps"))
+        for index, visual in enumerate(self.visuals, start=1):
+            found.append((f"visual-{index}", visual.title or f"Diagram {index}"))
+        if self.related_topics():
+            found.append(("related", "Related topics"))
+        return found
+
     def related_topics(self):
         """Explicitly linked topics first, then topics that share an objective.
 

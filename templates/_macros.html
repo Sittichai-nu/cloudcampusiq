@@ -46,8 +46,74 @@
 {% endmacro %}
 
 
-{% macro visual_panel(kind, title, caption, markup, open_by_default=False) %}
-<figure class="visual-panel" data-visual>
+{# The course outline. Shown beside a topic so moving to another one never
+   means backing out to the lesson list first. The current topic expands to
+   show its own sections, which is the only place jump links are useful. #}
+{% macro course_outline(course, current=None) %}
+<nav class="outline" aria-label="Course contents">
+    <div class="outline-head">
+        <span class="outline-eyebrow">{{ course.code }}</span>
+        <a href="{{ url_for('pages.course_detail', course_code=course.code) }}">{{ course.title }}</a>
+    </div>
+
+    {% for lesson in course.lessons %}
+    <div class="outline-lesson">
+        <a class="outline-lesson-title {{ 'on' if current and current.lesson.id == lesson.id else '' }}"
+           href="{{ url_for('pages.lesson_detail', course_code=course.code, number=lesson.number) }}">
+            <span class="outline-lesson-number">{{ lesson.number }}</span>
+            {{ lesson.title }}
+        </a>
+        <ul class="outline-topics">
+            {% for topic in lesson.topics %}
+            {% set is_current = current and topic.id == current.id %}
+            <li>
+                <a class="outline-topic {{ 'on' if is_current else '' }}"
+                   href="{{ url_for('pages.topic_detail', slug=topic.slug) }}"
+                   {{ 'aria-current="page"' if is_current else '' }}>
+                    {{ topic.title }}
+                </a>
+                {% if is_current %}
+                <ul class="outline-sections">
+                    {% for anchor, label in topic.sections() %}
+                    <li><a href="#{{ anchor }}">{{ label }}</a></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+</nav>
+{% endmacro %}
+
+
+{% macro topic_pager(topic) %}
+{% set previous, following = topic.neighbours() %}
+{% if previous or following %}
+<nav class="pager" aria-label="Topic navigation">
+    {% if previous %}
+    <a class="pager-link pager-prev" href="{{ url_for('pages.topic_detail', slug=previous.slug) }}">
+        <span class="pager-label">&larr; Previous</span>
+        <span class="pager-title">{{ previous.title }}</span>
+    </a>
+    {% else %}
+    <span class="pager-link pager-empty"></span>
+    {% endif %}
+
+    {% if following %}
+    <a class="pager-link pager-next" href="{{ url_for('pages.topic_detail', slug=following.slug) }}">
+        <span class="pager-label">Next &rarr;</span>
+        <span class="pager-title">{{ following.title }}</span>
+    </a>
+    {% endif %}
+</nav>
+{% endif %}
+{% endmacro %}
+
+
+{% macro visual_panel(kind, title, caption, markup, open_by_default=False, anchor=None) %}
+<figure class="visual-panel" data-visual {% if anchor %}id="{{ anchor }}"{% endif %}>
     <div class="visual-head">
         <figcaption>
             <strong>{{ title or 'Diagram' }}</strong>

@@ -12,7 +12,7 @@
     --radius-lg: 14px;
     --radius-md: 10px;
     --radius-sm: 6px;
-    --container: 1180px;
+    --container: 1400px;
 }
 
 * {
@@ -36,7 +36,11 @@ body {
 
 body.page-loaded {
     opacity: 1;
-    transform: translateY(0);
+    /* Must settle to `none`, not translateY(0). Any transform value other than
+       none makes body a containing block, which silently disables every
+       position: sticky descendant -- the outline and the "Where this fits"
+       panel both scrolled away because of this. */
+    transform: none;
 }
 
 a {
@@ -834,9 +838,16 @@ main {
 
 .topic-layout {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 320px;
+    grid-template-columns: 240px minmax(0, 1fr) 300px;
     gap: 1.75rem;
     align-items: start;
+}
+
+.topic-outline {
+    position: sticky;
+    top: 1.5rem;
+    max-height: calc(100vh - 3rem);
+    overflow-y: auto;
 }
 
 .topic-main {
@@ -1383,6 +1394,26 @@ mark {
 
 /* --- Responsive ---------------------------------------------------------- */
 
+/* Below three columns, the outline becomes a collapsed strip above the
+   reading column rather than disappearing. */
+@media (max-width: 1200px) {
+    .topic-layout {
+        grid-template-columns: minmax(0, 1fr) 300px;
+    }
+
+    .topic-outline {
+        grid-column: 1 / -1;
+        position: static;
+        max-height: none;
+    }
+
+    .outline-collapse {
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        background: var(--surface);
+    }
+}
+
 @media (max-width: 960px) {
     .topic-layout {
         grid-template-columns: 1fr;
@@ -1524,4 +1555,205 @@ mark {
 .exam-note p {
     margin: 0;
     line-height: 1.6;
+}
+
+/* --- Course outline ------------------------------------------------------ */
+
+.outline-collapse > summary {
+    display: none;
+    padding: 0.85rem 1.15rem;
+    font-weight: bold;
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: var(--primary-dark);
+}
+
+.outline {
+    font-size: 0.88rem;
+}
+
+.outline-head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding-bottom: 0.85rem;
+    margin-bottom: 0.85rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.outline-eyebrow {
+    font-size: 0.68rem;
+    font-weight: bold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.outline-head a {
+    font-weight: bold;
+    color: var(--text);
+    line-height: 1.35;
+}
+
+.outline-head a:hover {
+    color: var(--primary);
+}
+
+.outline-lesson + .outline-lesson {
+    margin-top: 1rem;
+}
+
+.outline-lesson-title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.35rem 0;
+    font-weight: bold;
+    color: var(--muted);
+    line-height: 1.35;
+}
+
+.outline-lesson-title:hover,
+.outline-lesson-title.on {
+    color: var(--primary-dark);
+}
+
+.outline-lesson-number {
+    flex: 0 0 auto;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    font-size: 0.7rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.outline-topics,
+.outline-sections {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.outline-topic {
+    display: block;
+    padding: 0.4rem 0.6rem 0.4rem 0.75rem;
+    margin-left: 0.55rem;
+    border-left: 2px solid var(--border);
+    color: var(--muted);
+    line-height: 1.4;
+}
+
+.outline-topic:hover {
+    border-left-color: var(--primary);
+    color: var(--primary-dark);
+    background: var(--surface-alt);
+}
+
+.outline-topic.on {
+    border-left-color: var(--primary);
+    background: var(--primary-soft);
+    color: var(--primary-dark);
+    font-weight: bold;
+}
+
+/* Section jump links, shown only under the topic being read. */
+.outline-sections {
+    margin: 0.15rem 0 0.5rem 1.5rem;
+    padding-left: 0.6rem;
+    border-left: 1px dashed var(--border);
+}
+
+.outline-sections a {
+    display: block;
+    padding: 0.25rem 0;
+    font-size: 0.82rem;
+    color: var(--muted);
+}
+
+.outline-sections a:hover {
+    color: var(--primary);
+}
+
+/* --- Prev / next pager --------------------------------------------------- */
+
+.pager {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.pager-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem 1.15rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+a.pager-link:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary);
+    box-shadow: var(--shadow);
+}
+
+.pager-empty {
+    border: none;
+    background: none;
+}
+
+.pager-next {
+    text-align: right;
+}
+
+.pager-label {
+    font-size: 0.72rem;
+    font-weight: bold;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.pager-title {
+    font-weight: bold;
+    color: var(--primary-dark);
+    line-height: 1.35;
+}
+
+@media (max-width: 1200px) {
+    .outline-collapse > summary {
+        display: list-item;
+    }
+
+    .outline-collapse[open] > summary {
+        border-bottom: 1px solid var(--border);
+    }
+
+    .outline-collapse .outline {
+        padding: 1rem 1.15rem;
+    }
+
+    .outline-lesson {
+        display: inline-block;
+        vertical-align: top;
+        min-width: 220px;
+        margin-right: 1.5rem;
+    }
+}
+
+@media (max-width: 620px) {
+    .pager {
+        grid-template-columns: 1fr;
+    }
+
+    .pager-next {
+        text-align: left;
+    }
 }
