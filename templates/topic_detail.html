@@ -27,10 +27,20 @@
                 {{ topic.body | format_body }}
             </div>
 
-            {% if topic.objectives %}
+            {% if topic.objectives or topic.exam_note %}
             <div class="topic-card exam-card">
                 <h2 class="topic-section-title">What the exam asks here</h2>
-                <p class="exam-intro">This topic is mapped to the following exam objectives. Use the checklist to test yourself against each one.</p>
+
+                {% if topic.exam_note %}
+                <div class="exam-note">
+                    <span class="exam-note-label">🔑 Exam scope</span>
+                    <p>{{ topic.exam_note }}</p>
+                </div>
+                {% endif %}
+
+                {% if topic.objectives %}
+                <p class="exam-intro">Every point below is listed under this topic in the official objectives appendix. Tick them off against yourself.</p>
+                {% endif %}
                 {% for objective in topic.objectives %}
                 <div class="exam-objective">
                     <div class="exam-objective-head">

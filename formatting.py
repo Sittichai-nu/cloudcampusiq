@@ -24,10 +24,14 @@ NUMBERED = re.compile(r"^(\d+)\.\s+(.*)$")
 BLANK_LINE = re.compile(r"\n\s*\n")
 
 # Paragraphs opening with one of these become a highlighted callout rather than
-# ordinary body text -- they are the "this is the bit that matters" lines.
+# ordinary body text. They are the author's own memory aids.
 CALLOUT_PREFIXES = ("Remember:", "Note:", "Key point:")
 
-CALLOUT_LABEL = "🔑 Key exam point"
+# Deliberately NOT "Key exam point". These lines are study mnemonics written by
+# the content author; nothing in the source says the exam asks them. Claims
+# about exam scope belong in a topic's `exam_note`, which cites the objectives
+# appendix. Labelling a mnemonic as an exam fact is a claim we cannot support.
+CALLOUT_LABEL = "Recall"
 
 
 def _escape(text):

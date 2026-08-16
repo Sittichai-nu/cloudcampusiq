@@ -47,7 +47,8 @@ def test_lead_in_line_becomes_a_subheading():
 def test_remember_paragraph_becomes_a_callout():
     html = render("Remember: know the ROI formula.")
     assert 'class="topic-callout"' in html
-    assert "Key exam point" in html
+    assert "Recall" in html
+    assert "Key exam point" not in html  # a mnemonic is not a sourced exam claim
     assert "know the ROI formula." in html
     assert "Remember:" not in html
 

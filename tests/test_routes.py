@@ -40,6 +40,27 @@ def test_topic_page_shows_the_exam_objective_checklist(client):
     assert "Return on investment analysis" in body       # one of its exam points
 
 
+def test_exam_claims_are_sourced_to_the_objectives_appendix(client):
+    body = client.get("/topics/business-case").get_data(as_text=True)
+    assert "Exam scope" in body
+    assert "The appendix maps this topic to two objectives" in body
+
+
+def test_a_topic_with_no_objective_says_so_rather_than_inventing_one(client):
+    # Topic 1A is mapped to no objective in the appendix. Saying that plainly
+    # beats manufacturing an exam claim for it.
+    body = client.get("/topics/project-management-basics").get_data(as_text=True)
+    assert "maps no exam objective to this topic" in body
+
+
+def test_body_callouts_do_not_claim_exam_authority(client):
+    # The "Remember:" lines are the author's mnemonics, not sourced exam facts.
+    for slug in ("project-management-basics", "business-case", "project-characteristics"):
+        body = client.get(f"/topics/{slug}").get_data(as_text=True)
+        assert "topic-callout-label\">Recall<" in body
+        assert "Key exam point" not in body
+
+
 def test_topic_page_renders_every_diagram_it_declares(client):
     body = client.get("/topics/project-characteristics").get_data(as_text=True)
     assert body.count('class="visual-panel"') == 4
