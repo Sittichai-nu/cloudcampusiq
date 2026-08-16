@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% from '_macros.html' import breadcrumb, verify_badge, visual_panel %}
+{% from '_macros.html' import breadcrumb, verify_badge, visual_panel, course_outline, topic_pager %}
 
 {% block title %}CloudCampusIQ | {{ topic.title }}{% endblock %}
 
@@ -22,13 +22,20 @@
 <section class="section">
     <div class="container topic-layout">
 
+        <aside class="topic-outline">
+            <details class="outline-collapse" open>
+                <summary>Course contents</summary>
+                {{ course_outline(course, current=topic) }}
+            </details>
+        </aside>
+
         <article class="topic-main">
-            <div class="topic-card">
+            <div class="topic-card" id="overview">
                 {{ topic.body | format_body }}
             </div>
 
             {% if topic.objectives or topic.exam_note %}
-            <div class="topic-card exam-card">
+            <div class="topic-card exam-card" id="exam">
                 <h2 class="topic-section-title">What the exam asks here</h2>
 
                 {% if topic.exam_note %}
@@ -62,7 +69,7 @@
             {% endif %}
 
             {% if topic.steps %}
-            <div class="topic-card">
+            <div class="topic-card" id="steps">
                 <h2 class="topic-section-title">Steps</h2>
                 <ol class="step-list">
                     {% for step in topic.steps %}
@@ -84,13 +91,14 @@
                 visual.title,
                 visual.caption,
                 render_visual(visual.kind, visual.data(), visual.title),
-                open_by_default=True
+                open_by_default=True,
+                anchor="visual-" ~ loop.index
             ) }}
             {% endfor %}
 
             {% set related = topic.related_topics() %}
             {% if related %}
-            <div class="topic-card">
+            <div class="topic-card" id="related">
                 <h2 class="topic-section-title">Related topics</h2>
                 <ul class="related-list">
                     {% for other, reason in related %}
@@ -102,6 +110,8 @@
                 </ul>
             </div>
             {% endif %}
+
+            {{ topic_pager(topic) }}
         </article>
 
         <aside class="topic-aside">

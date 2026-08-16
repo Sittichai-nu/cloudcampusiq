@@ -61,6 +61,45 @@ def test_body_callouts_do_not_claim_exam_authority(client):
         assert "Key exam point" not in body
 
 
+def test_topic_page_carries_the_course_outline(client):
+    body = client.get("/topics/business-case").get_data(as_text=True)
+    assert 'class="outline"' in body
+    # Every sibling topic is reachable without backing out to the lesson list.
+    assert "/topics/project-management-basics" in body
+    assert "/topics/project-characteristics" in body
+
+
+def test_outline_marks_the_topic_being_read(client):
+    body = client.get("/topics/business-case").get_data(as_text=True)
+    assert 'aria-current="page"' in body
+
+
+def test_outline_lists_jump_links_for_the_current_topic_only(client):
+    body = client.get("/topics/business-case").get_data(as_text=True)
+    assert 'class="outline-sections"' in body
+    assert body.count('class="outline-sections"') == 1
+    assert 'href="#exam"' in body
+    assert 'href="#steps"' in body
+
+
+def test_pager_links_to_both_neighbours(client):
+    body = client.get("/topics/business-case").get_data(as_text=True)
+    assert "pager-prev" in body
+    assert "pager-next" in body
+
+
+def test_pager_has_no_previous_on_the_first_topic(client):
+    body = client.get("/topics/project-management-basics").get_data(as_text=True)
+    assert "pager-prev" not in body
+    assert "pager-next" in body
+
+
+def test_pager_has_no_next_on_the_last_topic(client):
+    body = client.get("/topics/project-characteristics").get_data(as_text=True)
+    assert "pager-next" not in body
+    assert "pager-prev" in body
+
+
 def test_topic_page_renders_every_diagram_it_declares(client):
     body = client.get("/topics/project-characteristics").get_data(as_text=True)
     assert body.count('class="visual-panel"') == 4

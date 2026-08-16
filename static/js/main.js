@@ -6,7 +6,26 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeActiveNav();
     initializeLoginValidation();
     initializeVisualToggles();
+    initializeOutlineCollapse();
 });
+
+// The outline is a sticky column on wide screens, where it should always be
+// open. Below that it collapses into a strip above the reading column, and
+// starting it closed keeps the content in view instead of pushing it down.
+function initializeOutlineCollapse() {
+    const outline = document.querySelector('.outline-collapse');
+
+    if (!outline) {
+        return;
+    }
+
+    const applyState = () => {
+        outline.open = window.matchMedia('(min-width: 1201px)').matches;
+    };
+
+    applyState();
+    window.addEventListener('resize', applyState);
+}
 
 // Diagrams are rendered server-side and are already in the DOM, so they are
 // visible with JavaScript disabled. This only adds the ability to collapse one.
