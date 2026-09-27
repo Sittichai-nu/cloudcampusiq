@@ -52,10 +52,8 @@ function Invoke-Tests {
 
 function Invoke-BannedScan {
     Write-Host "==> Scanning for banned strings" -ForegroundColor Cyan
-    # .claude/ is excluded because the skill documents the rule and has to be
-    # able to name the string it bans.
     $files = Get-ChildItem -Recurse -File -Force |
-        Where-Object { $_.FullName -notmatch '\\(\.git|\.claude|__pycache__|instance|\.venv|venv|node_modules)\\' } |
+        Where-Object { $_.FullName -notmatch '\\(\.git|__pycache__|instance|\.venv|venv|node_modules)\\' } |
         Where-Object { $_.Name -notin @("dev.ps1", "dev.sh") }
 
     $hits = @()

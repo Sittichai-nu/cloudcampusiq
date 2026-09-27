@@ -39,10 +39,8 @@ do_banned_scan() {
     echo "==> Scanning for banned strings"
     local failed=0
     for banned in "${BANNED_STRINGS[@]}"; do
-        # .claude/ is excluded because the skill documents the rule and has to
-        # be able to name the string it bans.
         if grep -rIn --fixed-strings \
-            --exclude-dir=.git --exclude-dir=.claude --exclude-dir=__pycache__ \
+            --exclude-dir=.git --exclude-dir=__pycache__ \
             --exclude-dir=instance --exclude-dir=.venv --exclude-dir=venv \
             --exclude-dir=node_modules --exclude=dev.sh --exclude=dev.ps1 \
             "$banned" . ; then

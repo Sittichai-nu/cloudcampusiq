@@ -142,8 +142,7 @@ undefined phase, a `related` slug pointing at nothing, a duplicate slug, or a
 malformed diagram spec. Bad content breaks the build rather than rendering as a
 blank panel.
 
-See `.claude/skills/dev/SKILL.md` for the full authoring reference, or `/diagrams`
-in the running app for the diagram catalog.
+See `/diagrams` in the running app for the diagram catalog.
 
 ---
 
